@@ -515,9 +515,6 @@ async function submitForm() {
                 event_category: 'engagement',
                 event_label: 'lead_form_submission'
             });
-            gtag('event', 'conversion', {
-                'send_to': 'AW-10993115634/conversion_label_here'
-            });
         } catch (e) {
             // ignore
         }
