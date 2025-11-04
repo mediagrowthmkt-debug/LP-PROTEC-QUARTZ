@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    { "source": "/installers", "destination": "/quartz-countertop-installers.html" },
+    { "source": "/installation", "destination": "/kitchen-countertops-installation.html" },
+    { "source": "/kitchen-quartz", "destination": "/kitchen-quartz-countertops.html" },
+    { "source": "/thank-you", "destination": "/thank-you.html" }
+  ]
+}
