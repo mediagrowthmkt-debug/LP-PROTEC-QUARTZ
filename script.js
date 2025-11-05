@@ -2,9 +2,6 @@
 let currentSlide = 0;
 let currentVideoIndex = 0;
 let currentGallerySlide = 0;
-const totalSlides = 4;
-const totalVideos = 3;
-const totalGallerySlides = 6;
 
 // Inicialização quando o DOM estiver carregado
 document.addEventListener('DOMContentLoaded', function() {
@@ -14,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeForm();
     initializeScrollEffects();
     initializePhoneWidget();
+    initializeTestimonialVideos();
 });
 
 // Phone Widget
@@ -61,11 +59,12 @@ function initializeSlideshow() {
     
     if (slides.length === 0) return;
     
+    const total = slides.length;
     setInterval(() => {
         slides[currentSlide].classList.remove('active');
-        currentSlide = (currentSlide + 1) % totalSlides;
+        currentSlide = (currentSlide + 1) % total;
         slides[currentSlide].classList.add('active');
-    }, 5000); // Troca a cada 5 segundos
+    }, 5000);
 }
 
 // Carousel de vídeos com controles individuais
@@ -206,11 +205,14 @@ function showVideo(index) {
 
 // Navegação do carrossel de vídeos (apenas mobile)
 function changeVideo(direction) {
+    const total = document.querySelectorAll('.mobile-only .video-container').length || 0;
     let newIndex = currentVideoIndex + direction;
-    
-    if (newIndex >= totalVideos) newIndex = 0;
-    if (newIndex < 0) newIndex = totalVideos - 1;
-    
+    if (total > 0) {
+        if (newIndex >= total) newIndex = 0;
+        if (newIndex < 0) newIndex = total - 1;
+    } else {
+        newIndex = 0;
+    }
     showVideo(newIndex);
 }
 
@@ -244,8 +246,9 @@ function changeGallerySlide(direction) {
     
     // Calcula próximo slide
     currentGallerySlide += direction;
-    if (currentGallerySlide >= totalGallerySlides) currentGallerySlide = 0;
-    if (currentGallerySlide < 0) currentGallerySlide = totalGallerySlides - 1;
+    const total = slides.length;
+    if (currentGallerySlide >= total) currentGallerySlide = 0;
+    if (currentGallerySlide < 0) currentGallerySlide = total - 1;
     
     // Adiciona classe ativa
     slides[currentGallerySlide].classList.add('active');
@@ -274,24 +277,23 @@ function currentGallerySlideByDot(index) {
 // Funcionalidade do formulário
 function initializeForm() {
     const form = document.getElementById('leadForm');
-    const otherRadio = document.querySelector('input[name="area"][value="Other"]');
     const otherSpecify = document.getElementById('other-specify');
-    
-    // Mostrar/esconder campo "Other specify" para radio buttons
-    if (otherRadio && otherSpecify) {
-        const allAreaRadios = document.querySelectorAll('input[name="area"]');
-        
-        allAreaRadios.forEach(radio => {
-            radio.addEventListener('change', function() {
-                if (this.value === 'Other' && this.checked) {
-                    otherSpecify.style.display = 'block';
-                    otherSpecify.focus();
-                } else {
-                    otherSpecify.style.display = 'none';
-                    otherSpecify.value = '';
-                }
-            });
-        });
+    const areaSelect = document.getElementById('area');
+
+    // Mostrar/esconder campo "Other specify" para dropdown
+    if (areaSelect && otherSpecify) {
+        const updateOtherField = () => {
+            if (areaSelect.value === 'Other') {
+                otherSpecify.style.display = 'block';
+                otherSpecify.focus();
+            } else {
+                otherSpecify.style.display = 'none';
+                otherSpecify.value = '';
+            }
+        };
+        areaSelect.addEventListener('change', updateOtherField);
+        // Estado inicial
+        updateOtherField();
     }
     
     // Validação do formulário
@@ -327,7 +329,8 @@ function validateForm() {
     const name = document.getElementById('name').value.trim();
     const phone = document.getElementById('phone').value.trim();
     const email = document.getElementById('email').value.trim();
-    const areaSelected = document.querySelector('input[name="area"]:checked');
+    const areaSelect = document.getElementById('area');
+    const areaValue = areaSelect ? areaSelect.value.trim() : '';
     
     // Validar campos obrigatórios
     if (!name) {
@@ -354,15 +357,16 @@ function validateForm() {
         return false;
     }
     
-    if (!areaSelected) {
+    if (!areaValue) {
         showError('Please select an area you want to upgrade');
+        if (areaSelect) areaSelect.focus();
         return false;
     }
     
     // Validar campo "Other" se selecionado
     const otherSpecify = document.getElementById('other-specify').value.trim();
-    
-    if (areaSelected.value === 'Other' && !otherSpecify) {
+
+    if (areaValue === 'Other' && !otherSpecify) {
         showError('Please specify the other area');
         document.getElementById('other-specify').focus();
         return false;
@@ -447,7 +451,7 @@ async function submitForm() {
         name: document.getElementById('name').value.trim(),
         phone: document.getElementById('phone').value.trim(),
         email: document.getElementById('email').value.trim(),
-        area: document.querySelector('input[name="area"]:checked').value,
+        area: document.getElementById('area') ? document.getElementById('area').value : '',
         other_specify: document.getElementById('other-specify').value.trim(),
     };
 
@@ -671,11 +675,40 @@ document.addEventListener('click', function(e) {
 
 // Função para o carousel de vídeos compatível com global scope
 window.changeVideo = changeVideo;
-window.currentVideo = function(index) {
-    currentVideoByDot(index);
-};
+// Expor funções globais
+window.currentVideo = function(index) { currentVideo(index); };
 window.scrollToForm = scrollToForm;
 window.changeGallerySlide = changeGallerySlide;
 window.currentGallerySlide = function(index) {
     currentGallerySlideByDot(index);
 };
+
+// Testimonial overlay player (independente do índice global)
+function initializeTestimonialVideos() {
+    const players = document.querySelectorAll('.testimonial-player');
+    if (!players.length) return;
+    players.forEach((container) => {
+        const video = container.querySelector('video');
+        const overlay = container.querySelector('.desktop-video-overlay');
+        if (!video || !overlay) return;
+        overlay.addEventListener('click', () => {
+            // Pausar outros players testimonial
+            document.querySelectorAll('.testimonial-player video').forEach(v => {
+                if (v !== video) v.pause();
+            });
+            document.querySelectorAll('.testimonial-player .desktop-video-overlay').forEach(o => {
+                if (o !== overlay) o.classList.remove('playing');
+            });
+            if (video.paused) {
+                video.muted = false;
+                video.volume = 1.0;
+                video.play();
+                overlay.classList.add('playing');
+            } else {
+                video.pause();
+                overlay.classList.remove('playing');
+            }
+        });
+        video.addEventListener('ended', () => overlay.classList.remove('playing'));
+    });
+}

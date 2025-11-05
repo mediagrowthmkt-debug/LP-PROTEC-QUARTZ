@@ -23,11 +23,15 @@
     <header class="header">
         <div class="container">
             <img src="LOGO/logomarca-protec.png" alt="Protec Premium Granite" class="logo">
+            <nav class="nav">
+                <a href="mobile-showroom.html" class="primary-link">Mobile Showroom</a>
+                <a href="#contact-form">Get Quote</a>
+            </nav>
         </div>
     </header>
 
     <!-- BLOCO 1 - HERO SLIDESHOW (ATTENTION) -->
-    <section class="hero-section" id="hero">
+    <section class="hero-section hero-compact" id="hero">
         <div class="hero-slideshow">
             <div class="slide active" style="background-image: url('BLOCO 1 - Hero slideshow com overlay escuro e efeito de zoom suave (Ken Burns)/slide-001.jpg')"></div>
             <div class="slide" style="background-image: url('BLOCO 1 - Hero slideshow com overlay escuro e efeito de zoom suave (Ken Burns)/slide-002.jpg')"></div>
@@ -37,24 +41,36 @@
         <div class="hero-overlay"></div>
         <div class="hero-content">
             <div class="container">
-                <h1 class="hero-title">Worried Your <span class="highlight-text">Quartz Countertop</span> Won't Be Installed Right?</h1>
-                <p class="hero-subtitle">Most installers rush the job. We guarantee precision on every cut, seam, and edge.</p>
-                <p class="hero-description">Expert quartz countertop installers with <strong>certified fabrication</strong>, <strong>seamless installation</strong>, and a <strong>7-day completion guarantee</strong>.</p>
-                <div class="hero-pain-points">
-                    <div class="pain-point">❌ Afraid of visible seams?</div>
-                    <div class="pain-point">❌ Worried about chipping?</div>
-                    <div class="pain-point">❌ Concerned about delays?</div>
+                <h1 class="hero-title">Quartz Countertop Installers</h1>
+                <p class="hero-subtitle">Certified • Seamless • 7‑Day Install</p>
+                <button class="cta-button hero-cta" onclick="scrollToForm()">Get Your Free Quote</button>
+                <div class="hero-badges">
+                    <span class="hero-badge">⭐ 4.9/5 Rating</span>
+                    <span class="hero-badge">🔧 Certified Team</span>
+                    <span class="hero-badge">🛡️ Lifetime Warranty</span>
                 </div>
-                <div class="hero-solution">
-                    <p class="solution-text">✅ We solve it all with precision installation, mobile showroom, and guaranteed 7-day delivery.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Client Video Testimonial -->
+    <section class="client-testimonial-section" id="client-testimonial">
+        <div class="container">
+            <h2 class="section-title">Client Story: From First Visit to Flawless Install</h2>
+            <div class="testimonial-content">
+                <p class="section-text">
+                    Nothing speaks louder than our clients’ satisfaction. In this video, a customer shares how our mobile showroom made selection easy,
+                    how our team delivered fast with attention to detail, and how our post-install support gives peace of mind.
+                </p>
+                <div class="desktop-video-container testimonial-player">
+                    <video class="desktop-video" preload="metadata" playsinline>
+                        <source src="CLIENTE FALANDO DA EMPRESA/SnapInsta.to_AQOQ8uNly1E4AhQJxxkQ_jwszdBLSnHBX1FsDv_nEwJMa1vH-iLv-uHkqUYb82MbdyAkPIiFtYXkBH3msg9yTaaaPVoGzs2jq3N3fbo.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <button type="button" class="desktop-video-overlay">
+                        <span class="desktop-play-button">▶</span>
+                    </button>
                 </div>
-                <button class="cta-button hero-cta" onclick="scrollToForm()">Get Your Free Expert Consultation</button>
-                <div class="hero-features">
-                    <span class="feature">⭐ 4.9/5 Rated Installers</span>
-                    <span class="feature">🔧 Certified Fabricators</span>
-                    <span class="feature">⏱️ 7-Day Installation</span>
-                </div>
-                <p class="hero-arrow">See how we make quartz installation perfect ⬇️</p>
             </div>
         </div>
     </section>
@@ -401,28 +417,14 @@
                 </div>
                 <div class="form-group">
                     <label for="area">What quartz project are you planning? *</label>
-                    <div class="area-selector">
-                        <div class="area-option">
-                            <input type="radio" name="area" value="Kitchen Countertops" id="area-kitchen">
-                            <label for="area-kitchen" class="area-label">Kitchen</label>
-                        </div>
-                        <div class="area-option">
-                            <input type="radio" name="area" value="Bathroom Vanity" id="area-bathroom">
-                            <label for="area-bathroom" class="area-label">Bathroom</label>
-                        </div>
-                        <div class="area-option">
-                            <input type="radio" name="area" value="Island" id="area-island">
-                            <label for="area-island" class="area-label">Island</label>
-                        </div>
-                        <div class="area-option">
-                            <input type="radio" name="area" value="Backsplash" id="area-backsplash">
-                            <label for="area-backsplash" class="area-label">Backsplash</label>
-                        </div>
-                        <div class="area-option">
-                            <input type="radio" name="area" value="Other" id="area-other">
-                            <label for="area-other" class="area-label">Other</label>
-                        </div>
-                    </div>
+                    <select id="area" name="area" required class="area-select">
+                        <option value="" disabled selected>Select an option</option>
+                        <option value="Kitchen Countertops">Kitchen Countertops</option>
+                        <option value="Bathroom Vanity">Bathroom Vanity</option>
+                        <option value="Island">Island</option>
+                        <option value="Backsplash">Backsplash</option>
+                        <option value="Other">Other</option>
+                    </select>
                     <input type="text" id="other-specify" name="other_specify" placeholder="Please specify your project..." style="display: none; margin-top: 15px;">
                 </div>
                 <button type="submit" class="cta-button form-submit">Schedule My Free Quartz Consultation</button>
