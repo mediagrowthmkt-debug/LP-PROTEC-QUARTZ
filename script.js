@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeScrollEffects();
     initializePhoneWidget();
     initializeTestimonialVideos();
+    initializeHeaderAutoHideOnForm();
 });
 
 // Phone Widget
@@ -593,6 +594,42 @@ function initializeScrollEffects() {
             header.style.background = 'rgba(255, 255, 255, 0.95)';
             header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
         }
+    });
+}
+
+// Esconder header no mobile quando o formulário estiver em foco/visível
+function initializeHeaderAutoHideOnForm() {
+    const header = document.querySelector('.header');
+    const formSection = document.getElementById('contact-form');
+    if (!header || !formSection) return;
+
+    const mq = window.matchMedia('(max-width: 768px)');
+
+    const applyState = (hide) => {
+        if (mq.matches) {
+            header.classList.toggle('mobile-slide-up', hide);
+        } else {
+            header.classList.remove('mobile-slide-up');
+        }
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            // Quando a seção de formulário entra parcialmente na viewport, esconda o header
+            applyState(entry.isIntersecting);
+        });
+    }, {
+        root: null,
+        threshold: 0.15, // ao entrar ~15% do form
+        rootMargin: '0px 0px 0px 0px'
+    });
+
+    observer.observe(formSection);
+
+    // Reagir a mudanças de viewport (rotacionar/resize) para garantir estado correto
+    mq.addEventListener('change', () => {
+        // se sair do mobile, mostra o header
+        if (!mq.matches) header.classList.remove('mobile-slide-up');
     });
 }
 
