@@ -10,6 +10,7 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^installers$ quartz-countertop-installers.html [L]
 RewriteRule ^installation$ kitchen-countertops-installation.html [L]
 RewriteRule ^kitchen-quartz$ kitchen-quartz-countertops.html [L]
+RewriteRule ^google$ google.html [L]
 RewriteRule ^thank-you$ thank-you.html [L]
 
 # Remover .html das URLs (opcional)
