@@ -448,29 +448,47 @@ async function submitForm() {
     submitButton.disabled = true;
 
     // Coletar dados do formulário
-    const formData = {
-        name: document.getElementById('name').value.trim(),
-        phone: document.getElementById('phone').value.trim(),
-        email: document.getElementById('email').value.trim(),
-        area: document.getElementById('area') ? document.getElementById('area').value : '',
-        other_specify: document.getElementById('other-specify').value.trim(),
-    };
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const area = document.getElementById('area') ? document.getElementById('area').value : '';
+    const otherSpecify = document.getElementById('other-specify').value.trim();
+    
+    // Montar question field
+    let projectType = area;
+    if (area === 'Other' && otherSpecify) {
+        projectType = otherSpecify;
+    }
 
-    // Metadados da página (fonte/link)
-    const pageMeta = {
-        page_url: window.location.href,
-        page_path: window.location.pathname + window.location.search,
-        page_title: document.title,
-        referrer: document.referrer || '',
-        user_agent: navigator.userAgent,
-        timestamp: new Date().toISOString(),
-        source: 'Landing Page - Quartz Countertop Installers',
-        utm_source: getUrlParameter('utm_source') || 'direct',
-        utm_medium: getUrlParameter('utm_medium') || 'website',
-        utm_campaign: getUrlParameter('utm_campaign') || 'quartz-installers-landing'
-    };
+    // Traffic source: pegar de UTM ou referrer
+    const utmSource = getUrlParameter('utm_source');
+    const utmMedium = getUrlParameter('utm_medium');
+    const utmCampaign = getUrlParameter('utm_campaign');
+    let trafficSource = 'direct';
+    if (utmSource) {
+        trafficSource = utmSource;
+    } else if (document.referrer) {
+        try {
+            const refHost = new URL(document.referrer).hostname;
+            trafficSource = refHost;
+        } catch (e) {
+            trafficSource = 'referrer';
+        }
+    }
 
-    const payload = { ...formData, ...pageMeta };
+    // Campaign URL completa
+    const campaignUrl = window.location.href;
+
+    // Payload no formato solicitado
+    const payload = {
+        name: name,
+        email: email,
+        phone: phone,
+        plataforma: trafficSource,
+        question: projectType + ' - tipo de projeto? *',
+        source: campaignUrl,
+        tags: ['quartz-countertops']
+    };
 
     // Funções de envio
     const sendJson = () => fetch(webhookUrl, {
