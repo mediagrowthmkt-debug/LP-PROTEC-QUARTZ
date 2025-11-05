@@ -464,17 +464,36 @@ async function submitForm() {
     const utmSource = getUrlParameter('utm_source');
     const utmMedium = getUrlParameter('utm_medium');
     const utmCampaign = getUrlParameter('utm_campaign');
+    
+    // Se a URL contém /google ou google.html, usar "google" como plataforma
+    const currentPath = window.location.pathname.toLowerCase();
+    const currentUrl = window.location.href.toLowerCase();
+    
+    // Debug logs
+    console.log('DEBUG - Current Path:', currentPath);
+    console.log('DEBUG - Current URL:', currentUrl);
+    console.log('DEBUG - Includes /google?', currentPath.includes('/google'));
+    console.log('DEBUG - Includes google?', currentUrl.includes('google'));
+    
     let trafficSource = 'direct';
-    if (utmSource) {
+    
+    if (currentPath.includes('google') || currentUrl.includes('google')) {
+        trafficSource = 'google';
+        console.log('DEBUG - Setting trafficSource to: google');
+    } else if (utmSource) {
         trafficSource = utmSource;
+        console.log('DEBUG - Setting trafficSource to UTM:', utmSource);
     } else if (document.referrer) {
         try {
             const refHost = new URL(document.referrer).hostname;
             trafficSource = refHost;
+            console.log('DEBUG - Setting trafficSource to referrer:', refHost);
         } catch (e) {
             trafficSource = 'referrer';
         }
     }
+    
+    console.log('DEBUG - Final trafficSource:', trafficSource);
 
     // Campaign URL completa
     const campaignUrl = window.location.href;
@@ -489,6 +508,8 @@ async function submitForm() {
         source: campaignUrl,
         tags: ['quartz-countertops']
     };
+    
+    console.log('DEBUG - Payload being sent:', JSON.stringify(payload, null, 2));
 
     // Funções de envio
     const sendJson = () => fetch(webhookUrl, {
