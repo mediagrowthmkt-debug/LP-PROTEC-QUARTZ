@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeVideoCarousel();
     initializeGallerySlider();
     initializeForm();
+    initializeHeroAndSecondaryForms();
     initializeScrollEffects();
     initializePhoneWidget();
     initializeTestimonialVideos();
@@ -137,6 +138,29 @@ function toggleDesktopVideo(videoIndex) {
         overlay.classList.add('playing');
     } else {
         // Pausar o vídeo atual
+        video.pause();
+        overlay.classList.remove('playing');
+    }
+}
+
+// Versão limitada ao bloco de vídeos principal (evita conflito com testimonial)
+function toggleDesktopVideoPublic(videoIndex) {
+    const section = document.querySelector('.videos-section');
+    if (!section) return;
+    const videos = section.querySelectorAll('.desktop-video');
+    const overlays = section.querySelectorAll('.desktop-video-overlay');
+    const video = videos[videoIndex];
+    const overlay = overlays[videoIndex];
+    if (!video || !overlay) return;
+    // Pausar outros do bloco
+    videos.forEach(v => v.pause());
+    overlays.forEach(o => o.classList.remove('playing'));
+    if (video.paused) {
+        video.muted = false;
+        video.volume = 1.0;
+        video.play();
+        overlay.classList.add('playing');
+    } else {
         video.pause();
         overlay.classList.remove('playing');
     }
@@ -323,6 +347,205 @@ function initializeForm() {
             e.target.value = value;
         });
     }
+}
+
+// Inicializa formulários adicionais (HERO e disponibilidade)
+function initializeHeroAndSecondaryForms() {
+    // Máscara de telefone para campos extras
+    const maskPhone = (input) => {
+        if (!input) return;
+        input.addEventListener('input', (e) => {
+            let v = e.target.value.replace(/\D/g, '');
+            if (v.length >= 6) {
+                v = v.replace(/(\d{3})(\d{3})(\d+)/, '($1) $2-$3');
+            } else if (v.length >= 3) {
+                v = v.replace(/(\d{3})(\d+)/, '($1) $2');
+            }
+            e.target.value = v;
+        });
+    };
+
+    maskPhone(document.getElementById('hero-phone'));
+    maskPhone(document.getElementById('avail-phone'));
+
+    const heroForm = document.getElementById('heroLeadForm');
+    if (heroForm) {
+        heroForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const submitBtn = heroForm.querySelector('.hero-form-submit');
+            const original = submitBtn ? submitBtn.textContent : '';
+            if (submitBtn) { submitBtn.textContent = 'Sending...'; submitBtn.disabled = true; }
+
+            // Coletar campos
+            const name = (document.getElementById('hero-name')?.value || '').trim();
+            const phone = (document.getElementById('hero-phone')?.value || '').trim();
+            const timeframe = (document.getElementById('hero-timeframe')?.value || '').trim();
+
+            if (!name || !phone) {
+                showError('Please fill in Name and Phone');
+                if (submitBtn) { submitBtn.textContent = original; submitBtn.disabled = false; }
+                return;
+            }
+
+            // Traffic source: pegar de UTM ou referrer (mesma lógica do formulário principal)
+            const utmSource = getUrlParameter('utm_source');
+            const utmMedium = getUrlParameter('utm_medium');
+            const utmCampaign = getUrlParameter('utm_campaign');
+            
+            const currentPath = window.location.pathname.toLowerCase();
+            const currentUrl = window.location.href.toLowerCase();
+            
+            let trafficSource = 'direct';
+            
+            if (currentPath.includes('google') || currentUrl.includes('google')) {
+                trafficSource = 'google';
+            } else if (utmSource) {
+                trafficSource = utmSource;
+            } else if (document.referrer) {
+                try {
+                    const refHost = new URL(document.referrer).hostname;
+                    trafficSource = refHost;
+                } catch (e) {
+                    trafficSource = 'referrer';
+                }
+            }
+
+            const campaignUrl = window.location.href;
+            const payload = {
+                name,
+                phone,
+                email: '',
+                plataforma: trafficSource,
+                question: `Timeframe: ${timeframe || 'n/a'}`,
+                source: campaignUrl,
+                tags: ['quartz-countertops', 'hero-form']
+            };
+
+            console.log('DEBUG - Hero Form Payload:', JSON.stringify(payload, null, 2));
+
+            // Enviar evento para Google Analytics se disponível
+            if (typeof gtag !== 'undefined') {
+                try {
+                    gtag('event', 'form_submit', {
+                        event_category: 'engagement',
+                        event_label: 'hero_form_submission'
+                    });
+                } catch (e) {
+                    // ignore
+                }
+            }
+
+            try {
+                await postToWebhook(payload);
+            } catch (err) {
+                console.warn('Hero form webhook failed', err);
+            } finally {
+                setTimeout(() => {
+                    window.location.href = 'thank-you.html';
+                }, 300);
+            }
+        });
+    }
+
+    const availabilityForm = document.getElementById('availabilityForm');
+    if (availabilityForm) {
+        availabilityForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = availabilityForm.querySelector('.form-submit');
+            const original = btn ? btn.textContent : '';
+            if (btn) { btn.textContent = 'Checking...'; btn.disabled = true; }
+
+            const name = (document.getElementById('avail-name')?.value || '').trim();
+            const phone = (document.getElementById('avail-phone')?.value || '').trim();
+            const city = (document.getElementById('avail-city')?.value || '').trim();
+            if (!name || !phone || !city) {
+                showError('Please fill in Name, Phone and City');
+                if (btn) { btn.textContent = original; btn.disabled = false; }
+                return;
+            }
+
+            // Traffic source: pegar de UTM ou referrer (mesma lógica do formulário principal)
+            const utmSource = getUrlParameter('utm_source');
+            const utmMedium = getUrlParameter('utm_medium');
+            const utmCampaign = getUrlParameter('utm_campaign');
+            
+            const currentPath = window.location.pathname.toLowerCase();
+            const currentUrl = window.location.href.toLowerCase();
+            
+            let trafficSource = 'direct';
+            
+            if (currentPath.includes('google') || currentUrl.includes('google')) {
+                trafficSource = 'google';
+            } else if (utmSource) {
+                trafficSource = utmSource;
+            } else if (document.referrer) {
+                try {
+                    const refHost = new URL(document.referrer).hostname;
+                    trafficSource = refHost;
+                } catch (e) {
+                    trafficSource = 'referrer';
+                }
+            }
+
+            const payload = {
+                name,
+                phone,
+                email: '',
+                plataforma: trafficSource,
+                question: `City: ${city} - Check Availability`,
+                source: window.location.href,
+                tags: ['availability', 'quartz-countertops']
+            };
+
+            console.log('DEBUG - Availability Form Payload:', JSON.stringify(payload, null, 2));
+
+            // Enviar evento para Google Analytics se disponível
+            if (typeof gtag !== 'undefined') {
+                try {
+                    gtag('event', 'form_submit', {
+                        event_category: 'engagement',
+                        event_label: 'availability_form_submission'
+                    });
+                } catch (e) {
+                    // ignore
+                }
+            }
+
+            try {
+                await postToWebhook(payload);
+            } catch (err) {
+                console.warn('Availability form webhook failed', err);
+            } finally {
+                setTimeout(() => {
+                    window.location.href = 'thank-you.html';
+                }, 300);
+            }
+        });
+    }
+}
+
+// Helper para postar no webhook (suporta opcionalmente arquivo)
+async function postToWebhook(payload, file) {
+    const webhookUrl = 'https://hook.us2.make.com/242i9bj1u4f5jn9z4n8tp6fn7s128bn8';
+    // Tenta JSON primeiro
+    try {
+        const resp = await fetch(webhookUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+            mode: 'cors',
+            keepalive: true
+        });
+        if (resp && (resp.ok || resp.type === 'opaque')) return true;
+    } catch (e) {
+        // continua para fallback
+    }
+    // Fallback: FormData (no-cors), opcionalmente inclui arquivo
+    const fd = new FormData();
+    Object.keys(payload).forEach(k => fd.append(k, typeof payload[k] === 'object' ? JSON.stringify(payload[k]) : String(payload[k])));
+    if (file) fd.append('photo', file, file.name);
+    await fetch(webhookUrl, { method: 'POST', body: fd, mode: 'no-cors', keepalive: true });
+    return true;
 }
 
 // Validação do formulário
@@ -758,6 +981,8 @@ window.changeGallerySlide = changeGallerySlide;
 window.currentGallerySlide = function(index) {
     currentGallerySlideByDot(index);
 };
+// Expor versão pública do toggle para seção de vídeos
+window.toggleDesktopVideo = toggleDesktopVideoPublic;
 
 // Testimonial overlay player (independente do índice global)
 function initializeTestimonialVideos() {

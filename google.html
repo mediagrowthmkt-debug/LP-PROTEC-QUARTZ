@@ -28,13 +28,15 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Sticky Top Bar -->
+    
     <!-- Header -->
     <header class="header">
         <div class="container">
             <img src="LOGO/logomarca-protec.png" alt="Protec Premium Granite" class="logo">
             <nav class="nav">
-                <a href="mobile-showroom.html" class="primary-link">Mobile Showroom</a>
-                <a href="#contact-form">Get Quote</a>
+                <a href="#contact-form" class="nav-cta">Book Free Visit</a>
+                <a href="tel:+19782107952" class="mobile-call-btn">Call for Fast Estimate</a>
             </nav>
         </div>
     </header>
@@ -43,33 +45,187 @@
     <section class="hero-section hero-compact" id="hero">
         <div class="hero-slideshow">
             <div class="slide active" style="background-image: url('BLOCO 1 - Hero slideshow com overlay escuro e efeito de zoom suave (Ken Burns)/slide-001.jpg')"></div>
-            <div class="slide" style="background-image: url('BLOCO 1 - Hero slideshow com overlay escuro e efeito de zoom suave (Ken Burns)/slide-002.jpg')"></div>
-            <div class="slide" style="background-image: url('BLOCO 1 - Hero slideshow com overlay escuro e efeito de zoom suave (Ken Burns)/3.jpg')"></div>
-            <div class="slide" style="background-image: url('BLOCO 1 - Hero slideshow com overlay escuro e efeito de zoom suave (Ken Burns)/car-protec-e1761872246984.jpg')"></div>
+            <div class="slide" style="background-image: url('BLOCO 1 - Hero slideshow com overlay escuro e efeito de zoom suave (Ken Burns)/slide-002 10.19.13.jpg')"></div>
+            <div class="slide" style="background-image: url('BLOCO 1 - Hero slideshow com overlay escuro e efeito de zoom suave (Ken Burns)/car-protec-e1761872246984 10.19.13.jpg')"></div>
         </div>
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <div class="container">
-                <h1 class="hero-title">Quartz Countertops Made Easy</h1>
-                <p class="hero-subtitle">Certified • Seamless • 7‑Day Install</p>
-                <button class="cta-button hero-cta" onclick="scrollToForm()">Get Your Free Quote</button>
-                <div class="hero-badges">
-                    <span class="hero-badge">⭐ 4.9/5 Rating</span>
-                    <span class="hero-badge">🔧 Certified Team</span>
-                    <span class="hero-badge">🛡️ Lifetime Warranty</span>
+            <div class="container hero-grid">
+                <div class="hero-copy">
+                    <h1 class="hero-title">Quartz Countertop Installation in Massachusetts</h1>
+                    <p class="hero-subtitle">3D Preview + Same-Day Quote + 7-Day Install.</p>
+                    <p class="hero-pain">Stop guessing how your kitchen will look. See it in 3D before buying.</p>
+                    <button class="cta-button hero-cta" onclick="scrollToForm()">Book Your Free In-Home Mobile Showroom Visit</button>
+                    <div class="hero-badges">
+                        <span class="hero-badge">★ 4.9 — Based on Homeowners in Massachusetts</span>
+                        <span class="hero-badge">🔧 Certified Team</span>
+                        <span class="hero-badge">🚐 Mobile Showroom</span>
+                    </div>
+                </div>
+                <aside class="hero-form">
+                    <h3 class="hero-form-title">Schedule My Free Visit</h3>
+                    <form id="heroLeadForm" class="lead-form" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="hero-name">Name *</label>
+                            <input type="text" id="hero-name" name="name" required placeholder="Your full name">
+                        </div>
+                        <div class="form-group">
+                            <label for="hero-phone">Phone *</label>
+                            <input type="tel" id="hero-phone" name="phone" required placeholder="(555) 123-4567">
+                        </div>
+                        <div class="form-group">
+                            <label for="hero-timeframe">When do you need the project?</label>
+                            <select id="hero-timeframe" name="timeframe">
+                                <option value="" selected>Select an option</option>
+                                <option>ASAP (1–2 weeks)</option>
+                                <option>This month</option>
+                                <option>Next 2–3 months</option>
+                                <option>Just planning</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="cta-button hero-form-submit">Schedule My Free Visit</button>
+                        <p class="form-disclaimer small">No pressure sales · Same-day quote · Bilingual team</p>
+                    </form>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews just below HERO -->
+    <section class="reviews-top-section" id="reviews">
+        <div class="container">
+            <div class="reviews-header header-compact">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/120px-Google_%22G%22_logo.svg.png" alt="Google" class="google-logo">
+                <div class="reviews-rating">
+                    <div class="stars">★★★★★</div>
+                    <span class="rating-text">★ 4.9 — Based on Homeowners in Massachusetts</span>
+                </div>
+            </div>
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="review-header">
+                        <img src="reviews do google 10.19.06.rtfd/AMBA38tA1lkJX-Tf3DaMVVPDSJ2vDbJc3TisRrlgBK8qKFKo8cg82_P_167USwtkRfNUdsK0EuY6fIWUhYtWour6UVP0cabbfilBeD7xoTtvlJcR99lhj6IfNrVgq6ml1dTTTGfJ7ddUlqMNdRdz=s225-p-k-rw.webp" alt="Julio Joao" class="reviewer-avatar">
+                        <div class="reviewer-info">
+                            <h4 class="reviewer-name">Julio Joao — New Bedford, MA</h4>
+                            <div class="review-stars">★★★★★</div>
+                            <span class="review-date">2 months ago</span>
+                        </div>
+                    </div>
+                    <p class="review-text">"I just have to thank and congratulate Protec for the excellence they achieved in installing the countertop and island in our kitchen. I highly recommend them, the team is organized, punctual on the delivery date and careful to protect the floor of the house."</p>
+                </div>
+                <div class="review-card">
+                    <div class="review-header">
+                        <img src="reviews do google 10.19.06.rtfd/AMBA38vtMc4TJOsS_uBNRU-RkHhThPCVEku9CTpWX_rxTo0Cm0mO2L3H9zV3fgfk3Z-n1bIaedNT9-F5Jca6pb7Zug-rer-kB8_rGlpwIjojHyfHcgjWcElaqBXCfjIc492RkG5TeJf1Hkc6Qd6C=s225-p-k-rw.webp" alt="Claudete Lummertz" class="reviewer-avatar">
+                        <div class="reviewer-info">
+                            <h4 class="reviewer-name">Claudete Lummertz — Fall River, MA</h4>
+                            <div class="review-stars">★★★★★</div>
+                            <span class="review-date">2 months ago</span>
+                        </div>
+                    </div>
+                    <p class="review-text">"I hired this company to install marble in my bathroom and was very pleased. The service was meticulous, on time, and with impeccable finishes. The service was attentive and professional. I highly recommend it!"</p>
+                </div>
+                <div class="review-card">
+                    <div class="review-header">
+                        <img src="reviews do google 10.19.06.rtfd/AMBA38vqDHm3rChmE9lHYj3X6hKBvUMxrJZDBiVhntmp3m8wdxIGfJPAr1rwwTYuPZwkYqXEUa-REJwHyeWbB7jk4-GJjQwreOZMvxIbeKp8qH1NT4jSCXpKH7gpv3c6rZr9mNrWZN74IPvvQaYI=s225-p-k-rw.webp" alt="Carolina Mendes" class="reviewer-avatar">
+                        <div class="reviewer-info">
+                            <h4 class="reviewer-name">Carolina Mendes — Dartmouth, MA</h4>
+                            <div class="review-stars">★★★★★</div>
+                            <span class="review-date">2 months ago</span>
+                        </div>
+                    </div>
+                    <p class="review-text">"Amazing professional and service!! They renovated a whole kitchen for us, excellent finish!! Definitely would recommend!! Thank you guys for all!!"</p>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Portfolio Gallery Section -->
+    <section class="portfolio-section">
+        <div class="container">
+            <h2 class="section-title centered">See Our Work</h2>
+            <p class="section-text centered">Real Projects. Real Results. Real Homeowners in Massachusetts.</p>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <img src="BLOCO 6 - MORE PORTIFOLIO/12 10.19.10.jpg" alt="Quartz Countertop Installation Project">
+                </div>
+                <div class="portfolio-item">
+                    <img src="BLOCO 6 - MORE PORTIFOLIO/1761333615116_1 10.19.07.png" alt="Kitchen Quartz Countertop">
+                </div>
+                <div class="portfolio-item">
+                    <img src="BLOCO 6 - MORE PORTIFOLIO/1a37b29f-0289-4d60-be74-de2b9cc8d613-1-e1757261145919-768x768 10.19.13.jpeg" alt="Premium Quartz Installation">
+                </div>
+                <div class="portfolio-item">
+                    <img src="BLOCO 6 - MORE PORTIFOLIO/5-2-1024x576 10.19.13.jpg" alt="Custom Quartz Fabrication">
+                </div>
+                <div class="portfolio-item">
+                    <img src="BLOCO 6 - MORE PORTIFOLIO/IMG_0529-scaled-e1757262349775-768x768.jpg" alt="Quartz Countertop Project">
+                </div>
+                <div class="portfolio-item">
+                    <img src="BLOCO 6 - MORE PORTIFOLIO/IMG_8088.jpg" alt="Professional Quartz Installation">
+                </div>
+            </div>
+            <div class="cta-center">
+                <button class="cta-button" onclick="scrollToForm()">Start Your Project Today</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Differentials Section -->
+    <section class="why-choose-section">
+        <div class="container">
+            <h2 class="section-title centered">Why Homeowners Choose Protec</h2>
+            <p class="section-text centered">Your Biggest Differentials</p>
+            <div class="why-grid">
+                <div class="why-item">
+                    <h3>1 — Mobile Showroom That Goes to You</h3>
+                    <p>We bring the full quartz selection to your home — in your lighting, with AC comfort.</p>
+                </div>
+                <div class="why-item">
+                    <h3>2 — Real-Time 3D Kitchen Visualization</h3>
+                    <p>See the stone installed virtually in your own kitchen before fabrication.</p>
+                </div>
+                <div class="why-item">
+                    <h3>3 — Same-Day Quote After the Visit</h3>
+                    <p>Know your price on the spot — no waiting 2–3 days.</p>
+                </div>
+                <div class="why-item">
+                    <h3>4 — 7-Day Install Guarantee</h3>
+                    <p>The fastest installation in the region, guaranteed.</p>
+                </div>
+                <div class="why-item">
+                    <h3>5 — Family-Owned & Bilingual Team</h3>
+                    <p>Local, human, and bilingual service (English/Portuguese) you can trust.</p>
+                </div>
+            </div>
+            <div class="cta-center">
+                <button class="cta-button" onclick="scrollToForm()">Schedule Your Free In-Home Showroom Visit</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3D Preview Section -->
+    <section class="preview3d-section">
+        <div class="container preview3d-grid">
+            <div class="preview3d-copy">
+                <h2 class="section-title">Stop Guessing — See Your Kitchen in 3D</h2>
+                <p class="section-text">Most companies show you pictures. We show you your ACTUAL kitchen in 3D with the stone you choose — right inside your home.</p>
+                <button class="cta-button" onclick="scrollToForm()">See Your Kitchen in 3D Before Buying</button>
+            </div>
+            <div class="preview3d-image">
+                <img src="kitchen design3d.jpg" alt="3D Kitchen Preview Mockup">
+            </div>
+        </div>
+    </section>
+
+    
+
     <!-- Client Video Testimonial -->
     <section class="client-testimonial-section" id="client-testimonial">
         <div class="container">
-            <h2 class="section-title">Client Story: From First Visit to Flawless Install</h2>
+            <h2 class="section-title centered">Watch How We Install Quartz the Right Way</h2>
             <div class="testimonial-content">
-                <p class="section-text">
-                    Nothing speaks louder than our clients' satisfaction. In this video, a customer shares how our mobile showroom made selection easy,
-                    how our team delivered fast with attention to detail, and how our post-install support gives peace of mind.
+                <p class="section-text centered">
+                    See our process, precision, and attention to detail — start to finish.
                 </p>
                 <div class="desktop-video-container testimonial-player">
                     <video class="desktop-video" preload="metadata" playsinline poster="CLIENTE FALANDO DA EMPRESA/Captura de Tela 2025-11-04 às 23.11.25.png">
@@ -81,322 +237,89 @@
                     </button>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- BLOCO 2 - MOBILE SHOWROOM BENEFIT (INTEREST) -->
-    <section class="mobile-showroom-section" id="mobile-showroom">
-        <div class="container">
-            <div class="row">
-                <div class="col-left">
-                    <h2 class="section-title">Why Most Quartz Installations Fail (And How We're Different)</h2>
-                    <p class="section-text">Here's the painful truth: most installers treat quartz like any other stone. The result? Visible seams, uneven edges, stress cracks, and callbacks.</p>
-                    <p class="section-text highlight">At Protec, we're <strong>certified quartz specialists</strong> — not general contractors. Every installer on our team is trained in precision fabrication and seamless installation techniques.</p>
-                    
-                    <div class="differentiators">
-                        <div class="diff-item">
-                            <span class="diff-icon">✅</span>
-                            <div class="diff-content">
-                                <h3>Seamless Installation Technique</h3>
-                                <p>We use color-matched epoxy and expert seaming to make joints virtually invisible.</p>
-                            </div>
-                        </div>
-                        <div class="diff-item">
-                            <span class="diff-icon">✅</span>
-                            <div class="diff-content">
-                                <h3>Mobile Showroom Experience</h3>
-                                <p>See 100+ quartz samples in your actual lighting. No guessing if it matches your cabinets.</p>
-                            </div>
-                        </div>
-                        <div class="diff-item">
-                            <span class="diff-icon">✅</span>
-                            <div class="diff-content">
-                                <h3>3D Preview Technology</h3>
-                                <p>Visualize your exact quartz pattern before we cut a single slab.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-right">
-                    <!-- Photo Gallery Slider -->
-                    <div class="photo-gallery-slider">
-                        <div class="gallery-container">
-                            <div class="gallery-slide active">
-                                <img src="SLIDE DE FOTOS/539186488_122105963456988135_8534306731821448033_n.jpg" alt="Protec Quartz Installation 1">
-                            </div>
-                            <div class="gallery-slide">
-                                <img src="SLIDE DE FOTOS/559681728_122120476082988135_8808361279988812690_n.jpg" alt="Protec Quartz Installation 2">
-                            </div>
-                            <div class="gallery-slide">
-                                <img src="SLIDE DE FOTOS/561142554_122121462530988135_6717677738748677763_n.jpg" alt="Protec Quartz Installation 3">
-                            </div>
-                            <div class="gallery-slide">
-                                <img src="SLIDE DE FOTOS/565732040_122122235450988135_7386895601486472683_n.jpg" alt="Protec Quartz Installation 4">
-                            </div>
-                            <div class="gallery-slide">
-                                <img src="SLIDE DE FOTOS/569381684_122123502824988135_6238344627905708577_n.jpg" alt="Protec Quartz Installation 5">
-                            </div>
-                            <div class="gallery-slide">
-                                <img src="SLIDE DE FOTOS/unnamed.webp" alt="Protec Quartz Installation 6">
-                            </div>
-                        </div>
-                        <div class="gallery-navigation">
-                            <button class="gallery-btn prev" onclick="changeGallerySlide(-1)">‹</button>
-                            <button class="gallery-btn next" onclick="changeGallerySlide(1)">›</button>
-                        </div>
-                        <div class="gallery-dots">
-                            <span class="gallery-dot active" onclick="currentGallerySlide(1)"></span>
-                            <span class="gallery-dot" onclick="currentGallerySlide(2)"></span>
-                            <span class="gallery-dot" onclick="currentGallerySlide(3)"></span>
-                            <span class="gallery-dot" onclick="currentGallerySlide(4)"></span>
-                            <span class="gallery-dot" onclick="currentGallerySlide(5)"></span>
-                            <span class="gallery-dot" onclick="currentGallerySlide(6)"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- BLOCO 3 - PRODUCTS SHOWCASE (DESIRE) -->
-    <section class="products-section" id="products">
-        <div class="container">
-            <h2 class="section-title centered">Picture Your Dream Kitchen with Perfect Quartz Countertops</h2>
-            <p class="section-text centered white-text">Imagine walking into your kitchen and seeing flawless quartz countertops — no visible seams, no chips, no stress. Just beautiful, durable surfaces that look like they came from a luxury magazine.</p>
-            
-            <div class="why-quartz-section">
-                <h3 class="subsection-title">Why Homeowners Choose Quartz (And Why Installation Quality Matters)</h3>
-                <div class="quartz-benefits-grid">
-                    <div class="quartz-benefit">
-                        <span class="benefit-icon">💎</span>
-                        <h4>Non-Porous & Hygienic</h4>
-                        <p>Unlike granite, quartz never needs sealing. But poor installation can create gaps where bacteria hide.</p>
-                    </div>
-                    <div class="quartz-benefit">
-                        <span class="benefit-icon">💪</span>
-                        <h4>Incredibly Durable</h4>
-                        <p>Quartz is harder than granite. But only expert installers prevent stress cracks during setup.</p>
-                    </div>
-                    <div class="quartz-benefit">
-                        <span class="benefit-icon">🎨</span>
-                        <h4>Consistent Patterns</h4>
-                        <p>Engineered for beauty. We match veins across seams so they're virtually invisible.</p>
-                    </div>
-                    <div class="quartz-benefit">
-                        <span class="benefit-icon">🧼</span>
-                        <h4>Stain Resistant</h4>
-                        <p>Wine, coffee, oil — nothing stains quartz. Our installation ensures edges are perfectly sealed.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="protec-difference">
-                <h3 class="subsection-title">The Protec Difference: Certified Quartz Installation Experts</h3>
-                <div class="features-list">
-                    <div class="feature-item">✅ <strong>Certified Fabricators</strong> — Trained in advanced quartz cutting & seaming</div>
-                    <div class="feature-item">✅ <strong>Mobile Showroom</strong> — 100+ quartz samples brought to your home</div>
-                    <div class="feature-item">✅ <strong>3D Visualization</strong> — See your exact countertop before fabrication</div>
-                    <div class="feature-item">✅ <strong>Precision CNC Cutting</strong> — Computer-guided accuracy, zero human error</div>
-                    <div class="feature-item">✅ <strong>Invisible Seam Technology</strong> — Color-matched epoxy for flawless joints</div>
-                    <div class="feature-item">✅ <strong>7-Day Installation Guarantee</strong> — From template to installation in one week</div>
-                    <div class="feature-item">✅ <strong>Lifetime Workmanship Warranty</strong> — We stand behind every installation</div>
-                </div>
-            </div>
-
-            <div class="products-grid">
-                <div class="product-card">
-                    <img src="BLOCO 3. focar no desejo mostrar os produtos da PROTEC/PROJECTS/Kitchen Countertops/Kitchen Countertops.webp" alt="Quartz Kitchen Countertops" class="product-image">
-                    <h3 class="product-title">Kitchen Quartz Countertops</h3>
-                    <p class="product-description">The heart of your home deserves flawless quartz. Seamless installation with invisible joints and perfect edge profiles.</p>
-                </div>
-                <div class="product-card">
-                    <img src="BLOCO 3. focar no desejo mostrar os produtos da PROTEC/PROJECTS/Bathroom Vanities/Bathroom Vanities.webp" alt="Quartz Bathroom Vanities" class="product-image">
-                    <h3 class="product-title">Bathroom Quartz Vanities</h3>
-                    <p class="product-description">Water-resistant luxury. Our quartz vanities resist mold, mildew, and stains with expert installation.</p>
-                </div>
-                <div class="product-card">
-                    <img src="BLOCO 3. focar no desejo mostrar os produtos da PROTEC/PROJECTS/Custom Fabrication & Installation/Custom Fabrication & Installation .webp" alt="Custom Quartz Fabrication" class="product-image">
-                    <h3 class="product-title">Custom Quartz Fabrication</h3>
-                    <p class="product-description">Unique spaces need expert care. Waterfall edges, integrated sinks, custom backsplashes — all flawlessly installed.</p>
-                </div>
-                <div class="product-card">
-                    <img src="BLOCO 3. focar no desejo mostrar os produtos da PROTEC/PROJECTS/Outdoor Kitchens & BBQ Areas/Outdoor Kitchens & BBQ Areas.webp" alt="Outdoor Quartz Surfaces" class="product-image">
-                    <h3 class="product-title">Outdoor Quartz Areas</h3>
-                    <p class="product-description">UV-resistant quartz for outdoor kitchens. Weather-proof installation that lasts for decades.</p>
-                </div>
-                <div class="product-card">
-                    <img src="BLOCO 3. focar no desejo mostrar os produtos da PROTEC/PROJECTS/Fireplace Surrounds/Fireplace Surrounds.webp" alt="Quartz Fireplace Surrounds" class="product-image">
-                    <h3 class="product-title">Quartz Fireplace Surrounds</h3>
-                    <p class="product-description">Heat-resistant elegance. Our quartz fireplace installations create stunning focal points.</p>
-                </div>
-                <div class="product-card">
-                    <img src="BLOCO 3. focar no desejo mostrar os produtos da PROTEC/PROJECTS/Flooring & Wall Cladding/Flooring & Wall Cladding.webp" alt="Quartz Wall Cladding" class="product-image">
-                    <h3 class="product-title">Quartz Wall Cladding</h3>
-                    <p class="product-description">Full-height quartz backsplashes and accent walls installed with precision and artistry.</p>
-                </div>
-            </div>
-
-            <div class="testimonial">
-                <p class="testimonial-text">"After two failed installations by other companies, Protec came and did it right. The seams are invisible, and my kitchen finally looks like I imagined."</p>
-                <p class="testimonial-author">— Jennifer M., Newton MA</p>
-            </div>
-
-            <!-- VIDEOS - See Our Mobile Showroom in Action -->
-            <div class="videos-showcase">
-                <h2 class="section-title centered white-text">Watch Our Expert Quartz Installers in Action</h2>
-                
-                <!-- MOBILE VERSION - Carousel -->
-                <div class="video-carousel-wrapper mobile-only">
-                    <div class="video-frame">
-                        <div class="video-container active" data-video-index="0">
-                            <video class="carousel-video" preload="metadata" playsinline>
-                                <source src="BLOCO 4 - VIDEOS/1.mp4" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                            <button type="button" class="video-overlay" onclick="toggleMobileVideo(0)">
-                                <span class="play-button">▶</span>
-                            </button>
-                        </div>
-                        <div class="video-container" data-video-index="1">
-                            <video class="carousel-video" preload="metadata" playsinline>
-                                <source src="BLOCO 4 - VIDEOS/2.mp4" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                            <button type="button" class="video-overlay" onclick="toggleMobileVideo(1)">
-                                <span class="play-button">▶</span>
-                            </button>
-                        </div>
-                        <div class="video-container" data-video-index="2">
-                            <video class="carousel-video" preload="metadata" playsinline>
-                                <source src="BLOCO 4 - VIDEOS/3.mp4" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                            <button type="button" class="video-overlay" onclick="toggleMobileVideo(2)">
-                                <span class="play-button">▶</span>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="video-navigation">
-                        <button class="nav-btn prev" onclick="changeVideo(-1)">‹</button>
-                        <button class="nav-btn next" onclick="changeVideo(1)">›</button>
-                    </div>
-                    <div class="video-dots">
-                        <span class="dot active" onclick="currentVideo(1)"></span>
-                        <span class="dot" onclick="currentVideo(2)"></span>
-                        <span class="dot" onclick="currentVideo(3)"></span>
-                    </div>
-                </div>
-                
-                <!-- DESKTOP VERSION - 3 Separate Videos -->
-                <div class="desktop-videos-grid desktop-only">
-                    <div class="desktop-video-item">
-                        <div class="desktop-video-container">
-                            <video class="desktop-video" preload="metadata" playsinline>
-                                <source src="BLOCO 4 - VIDEOS/1.mp4" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                            <button type="button" class="desktop-video-overlay" onclick="toggleDesktopVideo(0)">
-                                <span class="desktop-play-button">▶</span>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="desktop-video-item">
-                        <div class="desktop-video-container">
-                            <video class="desktop-video" preload="metadata" playsinline>
-                                <source src="BLOCO 4 - VIDEOS/2.mp4" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                            <button type="button" class="desktop-video-overlay" onclick="toggleDesktopVideo(1)">
-                                <span class="desktop-play-button">▶</span>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="desktop-video-item">
-                        <div class="desktop-video-container">
-                            <video class="desktop-video" preload="metadata" playsinline>
-                                <source src="BLOCO 4 - VIDEOS/3.mp4" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                            <button type="button" class="desktop-video-overlay" onclick="toggleDesktopVideo(2)">
-                                <span class="desktop-play-button">▶</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Google Reviews Section -->
-            <div class="google-reviews">
-                <div class="reviews-header">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/120px-Google_%22G%22_logo.svg.png" alt="Google" class="google-logo">
-                    <div class="reviews-rating">
-                        <div class="stars">★★★★★</div>
-                        <span class="rating-text">4.9/5 Rating — Trusted Quartz Installers</span>
-                    </div>
-                </div>
-                
-                <div class="reviews-grid">
-                    <div class="review-card">
-                        <div class="review-header">
-                            <img src="reviews do google.rtfd/AMBA38tA1lkJX-Tf3DaMVVPDSJ2vDbJc3TisRrlgBK8qKFKo8cg82_P_167USwtkRfNUdsK0EuY6fIWUhYtWour6UVP0cabbfilBeD7xoTtvlJcR99lhj6IfNrVgq6ml1dTTTGfJ7ddUlqMNdRdz=s225-p-k-rw.webp" alt="Julio Joao" class="reviewer-avatar">
-                            <div class="reviewer-info">
-                                <h4 class="reviewer-name">Julio Joao</h4>
-                                <div class="review-stars">★★★★★</div>
-                                <span class="review-date">2 months ago</span>
-                            </div>
-                        </div>
-                        <p class="review-text">"I just have to thank and congratulate Protec for the excellence they achieved in installing the countertop and island in our kitchen. I highly recommend them, the team is organized, punctual on the delivery date and careful to protect the floor of the house."</p>
-                    </div>
-
-                    <div class="review-card">
-                        <div class="review-header">
-                            <img src="reviews do google.rtfd/AMBA38vtMc4TJOsS_uBNRU-RkHhThPCVEku9CTpWX_rxTo0Cm0mO2L3H9zV3fgfk3Z-n1bIaedNT9-F5Jca6pb7Zug-rer-kB8_rGlpwIjojHyfHcgjWcElaqBXCfjIc492RkG5TeJf1Hkc6Qd6C=s225-p-k-rw.webp" alt="Claudete Lummertz" class="reviewer-avatar">
-                            <div class="reviewer-info">
-                                <h4 class="reviewer-name">Claudete Lummertz</h4>
-                                <div class="review-stars">★★★★★</div>
-                                <span class="review-date">2 months ago</span>
-                            </div>
-                        </div>
-                        <p class="review-text">"I hired this company to install marble in my bathroom and was very pleased. The service was meticulous, on time, and with impeccable finishes. The service was attentive and professional. I highly recommend it!"</p>
-                    </div>
-
-                    <div class="review-card">
-                        <div class="review-header">
-                            <img src="reviews do google.rtfd/AMBA38vqDHm3rChmE9lHYj3X6hKBvUMxrJZDBiVhntmp3m8wdxIGfJPAr1rwwTYuPZwkYqXEUa-REJwHyeWbB7jk4-GJjQwreOZMvxIbeKp8qH1NT4jSCXpKH7gpv3c6rZr9mNrWZN74IPvvQaYI=s225-p-k-rw.webp" alt="Carolina Mendes" class="reviewer-avatar">
-                            <div class="reviewer-info">
-                                <h4 class="reviewer-name">Carolina Mendes</h4>
-                                <div class="review-stars">★★★★★</div>
-                                <span class="review-date">2 months ago</span>
-                            </div>
-                        </div>
-                        <p class="review-text">"Amazing professional and service!! They renovated a whole kitchen for us, excellent finish!! Definitely would recommend!! Thank you guys for all!!"</p>
-                    </div>
-
-                    <div class="review-card">
-                        <div class="review-header">
-                            <img src="reviews do google.rtfd/AMBA38t5szqVXdpxXzjwNS3M7s3_pzKnzGBZL1VjyWjp3EUVQmDHOhB66Zf7uLHGYN7eeomWrHu_9SB_h7b_C077NxCJOECTzI2-21wXxnMwuEpCBv--eAUdDSc_C4l-q-DZF8Bs24-COYZvmDRD=s225-p-k-rw.webp" alt="Rafaela Herzog" class="reviewer-avatar">
-                            <div class="reviewer-info">
-                                <h4 class="reviewer-name">Rafaela Herzog</h4>
-                                <div class="review-stars">★★★★★</div>
-                                <span class="review-date">1 month ago</span>
-                            </div>
-                        </div>
-                        <p class="review-text">"We contacted Protec Premium Granite after we had an issue with the company that previously installed our backsplash. They were prompt to solve the issue, had amazing communication, showed up on time and easily fixed the problem. I'm very happy with this company ⭐⭐⭐⭐⭐"</p>
-                    </div>
-                </div>
-            </div>
-
             <div class="cta-center">
-                <button class="cta-button products-cta" onclick="scrollToForm()">Schedule Your Free Quartz Consultation</button>
+                <button class="cta-button" onclick="scrollToForm()">Book Your Free Visit Now</button>
             </div>
         </div>
     </section>
 
-    <!-- BLOCO 5 - FORM SECTION (ACTION) -->
+    <!-- Additional short videos (2–3) -->
+    <section class="videos-section">
+        <div class="container">
+            <h2 class="section-title centered">See Our Team In Action</h2>
+            <div class="desktop-videos-grid desktop-only">
+                <div class="desktop-video-item">
+                    <div class="desktop-video-container">
+                        <video class="desktop-video" preload="metadata" playsinline>
+                            <source src="BLOCO 4 - VIDEOS/1.mp4" type="video/mp4">
+                        </video>
+                        <button type="button" class="desktop-video-overlay" onclick="toggleDesktopVideo(0)">
+                            <span class="desktop-play-button">▶</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="desktop-video-item">
+                    <div class="desktop-video-container">
+                        <video class="desktop-video" preload="metadata" playsinline>
+                            <source src="BLOCO 4 - VIDEOS/2.mp4" type="video/mp4">
+                        </video>
+                        <button type="button" class="desktop-video-overlay" onclick="toggleDesktopVideo(1)">
+                            <span class="desktop-play-button">▶</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="desktop-video-item">
+                    <div class="desktop-video-container">
+                        <video class="desktop-video" preload="metadata" playsinline>
+                            <source src="BLOCO 4 - VIDEOS/3.mp4" type="video/mp4">
+                        </video>
+                        <button type="button" class="desktop-video-overlay" onclick="toggleDesktopVideo(2)">
+                            <span class="desktop-play-button">▶</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="video-carousel-wrapper mobile-only">
+                <div class="video-frame">
+                    <div class="video-container active" data-video-index="0">
+                        <video class="carousel-video" preload="metadata" playsinline>
+                            <source src="BLOCO 4 - VIDEOS/1.mp4" type="video/mp4">
+                        </video>
+                        <button type="button" class="video-overlay" onclick="toggleMobileVideo(0)"><span class="play-button">▶</span></button>
+                    </div>
+                    <div class="video-container" data-video-index="1">
+                        <video class="carousel-video" preload="metadata" playsinline>
+                            <source src="BLOCO 4 - VIDEOS/2.mp4" type="video/mp4">
+                        </video>
+                        <button type="button" class="video-overlay" onclick="toggleMobileVideo(1)"><span class="play-button">▶</span></button>
+                    </div>
+                    <div class="video-container" data-video-index="2">
+                        <video class="carousel-video" preload="metadata" playsinline>
+                            <source src="BLOCO 4 - VIDEOS/3.mp4" type="video/mp4">
+                        </video>
+                        <button type="button" class="video-overlay" onclick="toggleMobileVideo(2)"><span class="play-button">▶</span></button>
+                    </div>
+                </div>
+                <div class="video-navigation">
+                    <button class="nav-btn prev" onclick="changeVideo(-1)">‹</button>
+                    <button class="nav-btn next" onclick="changeVideo(1)">›</button>
+                </div>
+                <div class="video-dots">
+                    <span class="dot active" onclick="currentVideo(1)"></span>
+                    <span class="dot" onclick="currentVideo(2)"></span>
+                    <span class="dot" onclick="currentVideo(3)"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+
+    <!-- Primary Form Section (ACTION) -->
     <section class="form-section" id="contact-form">
         <div class="container">
             <h2 class="section-title centered">Ready for Perfect Quartz Countertops?</h2>
-            <p class="section-text centered white-text">No more worrying about bad installations. Let our certified quartz experts transform your kitchen with flawless precision. Schedule your free in-home consultation and see 100+ quartz samples in your actual lighting.</p>
+            <p class="section-text centered white-text">Fill out the form below and we'll contact you with a free quote.</p>
             
             <div class="urgency-bar">
                 <p class="urgency-text">⏰ <strong>Limited Availability:</strong> We're booking 2-3 weeks out. Reserve your spot now!</p>
@@ -433,63 +356,102 @@
                 <p class="form-disclaimer">✅ No pressure sales | Mobile showroom to your home | Same-day estimate</p>
             </form>
         </div>
-    </section>
+        </section>
 
     <!-- BLOCO 6 - TRUST & PORTFOLIO -->
-    <section class="trust-section" id="trust">
+    
+
+    <!-- How It Works -->
+    <section class="how-it-works-section">
         <div class="container">
-            <h2 class="section-title centered">Why Massachusetts Homeowners Trust Protec for Quartz Installation</h2>
-            <div class="trust-features">
-                <div class="trust-item">
-                    <span class="trust-icon">🎓</span>
-                    <span class="trust-text">Certified Quartz Fabrication Specialists</span>
+            <h2 class="section-title centered">How It Works</h2>
+            <div class="steps-grid simple">
+                <div class="step-item" data-step="1">
+                    <h3>Mobile Showroom Visit</h3>
+                    <p>We bring 100+ quartz samples to your home so you can choose in your real lighting.</p>
                 </div>
-                <div class="trust-item">
-                    <span class="trust-icon">🔧</span>
-                    <span class="trust-text">Precision CNC Cutting Technology</span>
+                <div class="step-item" data-step="2">
+                    <h3>3D Preview + Same-Day Quote</h3>
+                    <p>See your kitchen in 3D with your chosen stone and get your price on the spot.</p>
                 </div>
-                <div class="trust-item">
-                    <span class="trust-icon">⏱️</span>
-                    <span class="trust-text">7-Day Installation Guarantee</span>
-                </div>
-                <div class="trust-item">
-                    <span class="trust-icon">🏆</span>
-                    <span class="trust-text">200+ Flawless Installations</span>
-                </div>
-                <div class="trust-item">
-                    <span class="trust-icon">💎</span>
-                    <span class="trust-text">Invisible Seam Technology</span>
-                </div>
-                <div class="trust-item">
-                    <span class="trust-icon">🚐</span>
-                    <span class="trust-text">Mobile Showroom Service</span>
-                </div>
-                <div class="trust-item">
-                    <span class="trust-icon">👨‍👩‍👧</span>
-                    <span class="trust-text">Family-Owned & Operated</span>
-                </div>
-                <div class="trust-item">
-                    <span class="trust-icon">💬</span>
-                    <span class="trust-text">Bilingual Team (English & Portuguese)</span>
+                <div class="step-item" data-step="3">
+                    <h3>7-Day Installation Guarantee</h3>
+                    <p>Fast, precise installation — backed by our workmanship warranty.</p>
                 </div>
             </div>
+            <div class="cta-center">
+                <button class="cta-button" onclick="scrollToForm()">Book Your Free Visit</button>
+            </div>
+        </div>
+        </section>
+
+    <!-- Mobile Showroom Section -->
+    <section class="mobile-showroom-section">
+        <div class="container">
+            <h2 class="section-title centered">Experience Our Mobile Showroom</h2>
+            <p class="section-text centered">The convenience of a full showroom — right at your doorstep</p>
             
-            <div class="guarantee-section">
-                <h3 class="subsection-title">Our Quartz Installation Guarantee</h3>
-                <p class="guarantee-text">We're so confident in our installation quality that we offer a <strong>lifetime workmanship warranty</strong>. If you ever have an issue with our installation — not the material, but our work — we'll fix it. Period.</p>
-            </div>
-            
-            <div class="portfolio-gallery">
-                <img src="BLOCO 6 - MORE PORTIFOLIO/12.jpg" alt="Quartz Installation Portfolio 1" class="portfolio-image">
-                <img src="BLOCO 6 - MORE PORTIFOLIO/1761333615116_1.png" alt="Quartz Installation Portfolio 2" class="portfolio-image">
-            </div>
-            <div class="final-cta">
-                <button class="cta-button final-cta-btn" onclick="scrollToForm()">Get Your Free Quartz Installation Quote</button>
+            <div class="showroom-content">
+                <div class="showroom-text">
+                    <h3>Why Visit a Showroom When We Come to You?</h3>
+                    <ul class="showroom-benefits">
+                        <li>
+                            <span class="benefit-icon">🚐</span>
+                            <div>
+                                <strong>100+ Quartz Samples in Our Van</strong>
+                                <p>Browse our complete selection without leaving your home</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="benefit-icon">💡</span>
+                            <div>
+                                <strong>See Colors in Your Actual Lighting</strong>
+                                <p>No more guessing — see how the stone looks in your kitchen's natural light</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="benefit-icon">❄️</span>
+                            <div>
+                                <strong>Climate Controlled & Comfortable</strong>
+                                <p>Air conditioned van ensures a comfortable shopping experience</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="benefit-icon">⏱️</span>
+                            <div>
+                                <strong>Save Time & Gas</strong>
+                                <p>No driving to multiple showrooms across town</p>
+                            </div>
+                        </li>
+                    </ul>
+                    <button class="cta-button" onclick="scrollToForm()">Schedule Your Mobile Showroom Visit</button>
+                </div>
+                
+                <div class="showroom-gallery">
+                    <div class="gallery-main">
+                        <img src="MOBILESHOWROOM/car-protec-e1761872246984.jpg" alt="Protec Mobile Showroom Van" class="main-image">
+                    </div>
+                    <div class="gallery-grid">
+                        <img src="MOBILESHOWROOM/1.jpg" alt="Inside Mobile Showroom" class="grid-image">
+                        <img src="MOBILESHOWROOM/3.jpg" alt="Quartz Samples Display" class="grid-image">
+                        <img src="MOBILESHOWROOM/4.jpg" alt="Mobile Showroom Interior" class="grid-image">
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- Final CTA -->
+    <section class="final-cta-strong">
+        <div class="container">
+            <h2 class="section-title centered">Ready to Upgrade Your Kitchen?</h2>
+            <p class="section-text centered">Mobile showroom. 3D preview. Same-day quote. 7-day install.</p>
+            <div class="cta-center">
+                <button class="cta-button final-cta-strong-btn" onclick="scrollToForm()">Book Your Free Visit Now</button>
+            </div>
+        </div>
+    </section>
+
     <footer class="footer">
         <div class="container">
             <img src="LOGO/logomarca-protec.png" alt="Protec Premium Granite" class="footer-logo">
@@ -509,6 +471,8 @@
             <p class="popup-text">Call us now!</p>
         </div>
     </div>
+
+    
 
     <script src="script.js"></script>
 </body>

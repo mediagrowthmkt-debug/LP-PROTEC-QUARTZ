@@ -26,14 +26,15 @@
     
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="no-top-bar">
+    
     <!-- Header -->
     <header class="header">
         <div class="container">
             <img src="LOGO/logomarca-protec.png" alt="Protec Premium Granite" class="logo">
             <nav class="nav">
-                <a href="mobile-showroom.html" class="primary-link">Mobile Showroom</a>
-                <a href="#contact-form">Get Quote</a>
+                <a href="#contact-form" class="nav-cta">Book Free Visit</a>
+                <a href="tel:+1XXXXXXXXXX" class="mobile-call-btn">Call for Fast Estimate</a>
             </nav>
         </div>
     </header>
@@ -47,14 +48,98 @@
         </div>
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <div class="container">
-                <h1 class="hero-title">Quartz Countertops Made Easy</h1>
-                <p class="hero-subtitle">Certified experts. Invisible seams. 7‑day install.</p>
-                <button class="cta-button hero-cta" onclick="scrollToForm()">Get a Free Consultation</button>
-                <div class="hero-badges">
-                    <span class="hero-badge">🎓 Certified</span>
-                    <span class="hero-badge">💎 Invisible Seams</span>
-                    <span class="hero-badge">⏱️ 7‑Day Timeline</span>
+            <div class="container hero-grid">
+                <div class="hero-copy">
+                    <h1 class="hero-title">We Bring the Quartz Showroom to Your Home.</h1>
+                    <p class="hero-subtitle">3D Preview + Same-Day Quote + 7-Day Install.</p>
+                    <p class="hero-pain">Stop guessing how your kitchen will look. See it in 3D before buying.</p>
+                    <button class="cta-button hero-cta" onclick="scrollToForm()">Book Your Free In-Home Mobile Showroom Visit</button>
+                    <div class="hero-badges">
+                        <span class="hero-badge">★ 4.9 — Based on Homeowners in Massachusetts</span>
+                        <span class="hero-badge">🔧 Certified Team</span>
+                        <span class="hero-badge">🚐 Mobile Showroom</span>
+                    </div>
+                </div>
+                <aside class="hero-form">
+                    <h3 class="hero-form-title">Schedule My Free Visit</h3>
+                    <form id="heroLeadForm" class="lead-form" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="hero-name">Name *</label>
+                            <input type="text" id="hero-name" name="name" required placeholder="Your full name">
+                        </div>
+                        <div class="form-group">
+                            <label for="hero-phone">Phone *</label>
+                            <input type="tel" id="hero-phone" name="phone" required placeholder="(555) 123-4567">
+                        </div>
+                        <div class="form-group">
+                            <label for="hero-city">City *</label>
+                            <input type="text" id="hero-city" name="city" required placeholder="Your city in MA">
+                        </div>
+                        <div class="form-group">
+                            <label for="hero-timeframe">When do you need the project?</label>
+                            <select id="hero-timeframe" name="timeframe">
+                                <option value="" selected>Select an option</option>
+                                <option>ASAP (1–2 weeks)</option>
+                                <option>This month</option>
+                                <option>Next 2–3 months</option>
+                                <option>Just planning</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="hero-photo">Upload a picture of your kitchen (optional)</label>
+                            <input type="file" id="hero-photo" name="photo" accept="image/*">
+                        </div>
+                        <button type="submit" class="cta-button hero-form-submit">Schedule My Free Visit</button>
+                        <p class="form-disclaimer small">No pressure sales · Same-day quote · Bilingual team</p>
+                    </form>
+                </aside>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews just below HERO -->
+    <section class="reviews-top-section" id="reviews">
+        <div class="container">
+            <div class="reviews-header header-compact">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/120px-Google_%22G%22_logo.svg.png" alt="Google" class="google-logo">
+                <div class="reviews-rating">
+                    <div class="stars">★★★★★</div>
+                    <span class="rating-text">★ 4.9 — Based on Homeowners in Massachusetts</span>
+                </div>
+            </div>
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="review-header">
+                        <img src="reviews do google.rtfd/AMBA38tA1lkJX-Tf3DaMVVPDSJ2vDbJc3TisRrlgBK8qKFKo8cg82_P_167USwtkRfNUdsK0EuY6fIWUhYtWour6UVP0cabbfilBeD7xoTtvlJcR99lhj6IfNrVgq6ml1dTTTGfJ7ddUlqMNdRdz=s225-p-k-rw.webp" alt="Julio Joao" class="reviewer-avatar">
+                        <div class="reviewer-info">
+                            <h4 class="reviewer-name">Julio Joao — New Bedford, MA</h4>
+                            <div class="review-stars">★★★★★</div>
+                            <span class="review-date">2 months ago</span>
+                        </div>
+                    </div>
+                    <p class="review-text">"Excellent installation! The team is organized, punctual, and careful. Highly recommend for quartz countertops."</p>
+                </div>
+                <div class="review-card">
+                    <div class="review-header">
+                        <img src="reviews do google.rtfd/AMBA38vqDHm3rChmE9lHYj3X6hKBvUMxrJZDBiVhntmp3m8wdxIGfJPAr1rwwTYuPZwkYqXEUa-REJwHyeWbB7jk4-GJjQwreOZMvxIbeKp8qH1NT4jSCXpKH7gpv3c6rZr9mNrWZN74IPvvQaYI=s225-p-k-rw.webp" alt="Carolina Mendes" class="reviewer-avatar">
+                        <div class="reviewer-info">
+                            <h4 class="reviewer-name">Carolina Mendes — Dartmouth, MA</h4>
+                            <div class="review-stars">★★★★★</div>
+                            <span class="review-date">2 months ago</span>
+                        </div>
+                    </div>
+                    <p class="review-text">"Amazing professionals! Excellent finish on our kitchen countertops. Definitely recommend!"</p>
+                </div>
+                <div class="review-card">
+                    <div class="review-header">
+                        <img src="reviews do google.rtfd/AMBA38vtMc4TJOsS_uBNRU-RkHhThPCVEku9CTpWX_rxTo0Cm0mO2L3H9zV3fgfk3Z-n1bIaedNT9-F5Jca6pb7Zug-rer-kB8_rGlpwIjojHyfHcgjWcElaqBXCfjIc492RkG5TeJf1Hkc6Qd6C=s225-p-k-rw.webp" alt="Claudete Lummertz" class="reviewer-avatar">
+                        <div class="reviewer-info">
+                            <h4 class="reviewer-name">Claudete Lummertz — Fall River, MA</h4>
+                            <div class="review-stars">★★★★★</div>
+                            <span class="review-date">2 months ago</span>
+                        </div>
+                    </div>
+                    <p class="review-text">"Great service and impeccable finish. Highly recommend!"</p>
                 </div>
             </div>
         </div>
@@ -178,40 +263,7 @@
                 <p class="testimonial-author">— Jennifer M., Newton MA</p>
             </div>
 
-            <!-- Google Reviews -->
-            <div class="google-reviews">
-                <div class="reviews-header">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/120px-Google_%22G%22_logo.svg.png" alt="Google" class="google-logo">
-                    <div class="reviews-rating">
-                        <div class="stars">★★★★★</div>
-                        <span class="rating-text">4.9/5 — Trusted Quartz Installers</span>
-                    </div>
-                </div>
-                
-                <div class="reviews-grid">
-                    <div class="review-card">
-                        <div class="review-header">
-                            <img src="reviews do google.rtfd/AMBA38tA1lkJX-Tf3DaMVVPDSJ2vDbJc3TisRrlgBK8qKFKo8cg82_P_167USwtkRfNUdsK0EuY6fIWUhYtWour6UVP0cabbfilBeD7xoTtvlJcR99lhj6IfNrVgq6ml1dTTTGfJ7ddUlqMNdRdz=s225-p-k-rw.webp" alt="Julio Joao" class="reviewer-avatar">
-                            <div class="reviewer-info">
-                                <h4 class="reviewer-name">Julio Joao</h4>
-                                <div class="review-stars">★★★★★</div>
-                            </div>
-                        </div>
-                        <p class="review-text">"Excellent installation! The team is organized, punctual, and careful. Highly recommend for quartz countertops."</p>
-                    </div>
-
-                    <div class="review-card">
-                        <div class="review-header">
-                            <img src="reviews do google.rtfd/AMBA38vqDHm3rChmE9lHYj3X6hKBvUMxrJZDBiVhntmp3m8wdxIGfJPAr1rwwTYuPZwkYqXEUa-REJwHyeWbB7jk4-GJjQwreOZMvxIbeKp8qH1NT4jSCXpKH7gpv3c6rZr9mNrWZN74IPvvQaYI=s225-p-k-rw.webp" alt="Carolina Mendes" class="reviewer-avatar">
-                            <div class="reviewer-info">
-                                <h4 class="reviewer-name">Carolina Mendes</h4>
-                                <div class="review-stars">★★★★★</div>
-                            </div>
-                        </div>
-                        <p class="review-text">"Amazing professionals! Excellent finish on our kitchen countertops. Definitely recommend!"</p>
-                    </div>
-                </div>
-            </div>
+            <!-- Reviews moved near top -->
 
             <div class="cta-center">
                 <button class="cta-button products-cta" onclick="scrollToForm()">Get Your Free Installation Quote</button>
@@ -262,47 +314,7 @@
         </div>
     </section>
 
-    <!-- TRUST SECTION -->
-    <section class="trust-section" id="trust">
-        <div class="container">
-            <h2 class="section-title centered">Why Choose Protec Quartz Countertop Installers?</h2>
-            <div class="trust-features">
-                <div class="trust-item">
-                    <span class="trust-icon">🎓</span>
-                    <span class="trust-text">Certified Quartz Specialists</span>
-                </div>
-                <div class="trust-item">
-                    <span class="trust-icon">🔧</span>
-                    <span class="trust-text">Advanced CNC Equipment</span>
-                </div>
-                <div class="trust-item">
-                    <span class="trust-icon">💎</span>
-                    <span class="trust-text">Invisible Seam Technology</span>
-                </div>
-                <div class="trust-item">
-                    <span class="trust-icon">⏱️</span>
-                    <span class="trust-text">7-Day Installation Guarantee</span>
-                </div>
-                <div class="trust-item">
-                    <span class="trust-icon">🏆</span>
-                    <span class="trust-text">200+ Perfect Installations</span>
-                </div>
-                <div class="trust-item">
-                    <span class="trust-icon">🛡️</span>
-                    <span class="trust-text">Lifetime Workmanship Warranty</span>
-                </div>
-            </div>
-
-            <div class="guarantee-section">
-                <h3 class="subsection-title">Our Installation Guarantee</h3>
-                <p class="guarantee-text">We guarantee our installation work for life. If you ever have an issue with our workmanship, we'll fix it. No questions asked.</p>
-            </div>
-            
-            <div class="final-cta">
-                <button class="cta-button final-cta-btn" onclick="scrollToForm()">Hire Expert Quartz Installers Today</button>
-            </div>
-        </div>
-    </section>
+    
 
     <!-- Footer -->
     <footer class="footer">
@@ -322,6 +334,13 @@
             <button class="popup-close" id="popupClose">×</button>
             <p class="popup-text">Call us now!</p>
         </div>
+    </div>
+
+    
+
+    <!-- Mobile Sticky Bottom Bar -->
+    <div class="mobile-sticky-bar">
+        <button class="sticky-bar-btn" onclick="scrollToForm()">Book Free Visit</button>
     </div>
 
     <script src="script.js"></script>
