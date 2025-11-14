@@ -152,10 +152,20 @@ function toggleDesktopVideoPublic(videoIndex) {
     const video = videos[videoIndex];
     const overlay = overlays[videoIndex];
     if (!video || !overlay) return;
-    // Pausar outros do bloco
-    videos.forEach(v => v.pause());
-    overlays.forEach(o => o.classList.remove('playing'));
+    
     if (video.paused) {
+        // Pausar outros vídeos do bloco
+        videos.forEach((v, i) => {
+            if (i !== videoIndex) {
+                v.pause();
+            }
+        });
+        overlays.forEach((o, i) => {
+            if (i !== videoIndex) {
+                o.classList.remove('playing');
+            }
+        });
+        
         video.muted = false;
         video.volume = 1.0;
         video.play();
