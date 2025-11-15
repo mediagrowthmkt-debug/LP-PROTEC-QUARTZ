@@ -196,12 +196,63 @@ body {
     animation: kenBurns 15s ease-in-out;
 }
 
+/* Hero Slide with Ken Burns Effect */
+.hero-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+    z-index: 1;
+}
+
+.hero-slide.active {
+    opacity: 1;
+    animation: kenBurnsZoom 12s ease-in-out infinite;
+}
+
+/* Hero Video Styles */
+.hero-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+    z-index: 1;
+}
+
+.hero-video.active {
+    opacity: 1;
+}
+
 @keyframes kenBurns {
     0% {
         transform: scale(1);
     }
     50% {
         transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes kenBurnsZoom {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.08);
     }
     100% {
         transform: scale(1);

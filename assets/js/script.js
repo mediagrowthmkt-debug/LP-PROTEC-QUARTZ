@@ -3,6 +3,94 @@ let currentSlide = 0;
 let currentVideoIndex = 0;
 let currentGallerySlide = 0;
 
+// Funções globais para uso inline (devem estar disponíveis imediatamente)
+function toggleDesktopVideo(videoIndex) {
+    const section = document.querySelector('.videos-section');
+    if (!section) return;
+    const videos = section.querySelectorAll('.desktop-video');
+    const overlays = section.querySelectorAll('.desktop-video-overlay');
+    const video = videos[videoIndex];
+    const overlay = overlays[videoIndex];
+    if (!video || !overlay) return;
+    
+    if (video.paused) {
+        // Pausar outros vídeos do bloco
+        videos.forEach((v, i) => {
+            if (i !== videoIndex) {
+                v.pause();
+            }
+        });
+        overlays.forEach((o, i) => {
+            if (i !== videoIndex) {
+                o.classList.remove('playing');
+            }
+        });
+        
+        video.muted = false;
+        video.volume = 1.0;
+        video.play();
+        overlay.classList.add('playing');
+    } else {
+        video.pause();
+        overlay.classList.remove('playing');
+    }
+}
+
+function toggleMobileVideo(videoIndex) {
+    const mobileVideos = document.querySelectorAll('.mobile-only .carousel-video');
+    const mobileOverlays = document.querySelectorAll('.mobile-only .video-overlay');
+    
+    const video = mobileVideos[videoIndex];
+    const overlay = mobileOverlays[videoIndex];
+    
+    if (!video || !overlay) return;
+    
+    if (video.paused) {
+        // Pausar todos os outros vídeos mobile
+        mobileVideos.forEach(v => v.pause());
+        mobileOverlays.forEach(o => o.classList.remove('playing'));
+        
+        // Reproduzir o vídeo selecionado
+        video.muted = false;
+        video.volume = 1.0;
+        video.play();
+        overlay.classList.add('playing');
+    } else {
+        video.pause();
+        overlay.classList.remove('playing');
+    }
+}
+
+function scrollToForm() {
+    const formSection = document.getElementById('contact-form') || document.getElementById('form-section');
+    if (formSection) {
+        formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        
+        // Focus no primeiro campo após scroll
+        setTimeout(() => {
+            const nameInput = document.getElementById('name') || document.getElementById('hero-name');
+            if (nameInput) {
+                nameInput.focus();
+            }
+        }, 800);
+    }
+}
+
+function changeGallerySlide(direction) {
+    const slides = document.querySelectorAll('.gallery-slide');
+    const dots = document.querySelectorAll('.gallery-dot');
+    
+    if (slides.length === 0) return;
+    
+    slides[currentGallerySlide].classList.remove('active');
+    if (dots.length > 0) dots[currentGallerySlide].classList.remove('active');
+    
+    currentGallerySlide = (currentGallerySlide + direction + slides.length) % slides.length;
+    
+    slides[currentGallerySlide].classList.add('active');
+    if (dots.length > 0) dots[currentGallerySlide].classList.add('active');
+}
+
 // Inicialização quando o DOM estiver carregado
 document.addEventListener('DOMContentLoaded', function() {
     initializeSlideshow();
@@ -55,10 +143,64 @@ function initializePhoneWidget() {
     }
 }
 
-// Slideshow Hero com efeito Ken Burns
+// Slideshow Hero com efeito Ken Burns (imagens e vídeos)
 function initializeSlideshow() {
     const slides = document.querySelectorAll('.slide');
+    const heroSlides = document.querySelectorAll('.hero-slide');
+    const videos = document.querySelectorAll('.hero-video');
     
+    // Se houver hero-slides (imagens) e vídeos, alternar entre todos
+    if (heroSlides.length > 0 || videos.length > 0) {
+        const allMedia = [...heroSlides, ...videos];
+        const total = allMedia.length;
+        let currentMediaIndex = 0;
+        
+        // Precarregar todos os vídeos
+        videos.forEach(video => {
+            video.load();
+        });
+        
+        // Iniciar o primeiro item
+        if (allMedia[0].tagName === 'VIDEO') {
+            // Tentar dar play quando o vídeo estiver pronto
+            allMedia[0].addEventListener('loadeddata', function() {
+                this.play().catch(e => {
+                    console.log('Autoplay prevented:', e);
+                    // Se autoplay falhar, tentar com interação do usuário
+                    document.addEventListener('click', function playOnClick() {
+                        allMedia[0].play();
+                        document.removeEventListener('click', playOnClick);
+                    }, { once: true });
+                });
+            });
+            allMedia[0].load();
+        }
+        
+        // Trocar mídia a cada 8 segundos
+        setInterval(() => {
+            allMedia[currentMediaIndex].classList.remove('active');
+            
+            // Pausar vídeo se for vídeo
+            if (allMedia[currentMediaIndex].tagName === 'VIDEO') {
+                allMedia[currentMediaIndex].pause();
+                allMedia[currentMediaIndex].currentTime = 0;
+            }
+            
+            currentMediaIndex = (currentMediaIndex + 1) % total;
+            allMedia[currentMediaIndex].classList.add('active');
+            
+            // Play vídeo se for vídeo
+            if (allMedia[currentMediaIndex].tagName === 'VIDEO') {
+                allMedia[currentMediaIndex].play().catch(e => {
+                    console.log('Video play prevented:', e);
+                });
+            }
+        }, 8000);
+        
+        return;
+    }
+    
+    // Se houver apenas slides de imagem (compatibilidade)
     if (slides.length === 0) return;
     
     const total = slides.length;
@@ -92,94 +234,39 @@ function initializeVideoCarousel() {
     });
 }
 
-// Toggle play/pause para vídeo mobile
-function toggleMobileVideo(videoIndex) {
-    const videoContainer = document.querySelector(`.mobile-only [data-video-index="${videoIndex}"]`);
-    const video = videoContainer.querySelector('.carousel-video');
-    const overlay = videoContainer.querySelector('.video-overlay');
-    
-    if (video.paused) {
-        // Pausar todos os outros vídeos mobile
-        pauseAllMobileVideos();
-        
-        // Habilitar volume e reproduzir o vídeo selecionado
-        video.muted = false;
-        video.volume = 1.0;
-        video.play();
-        overlay.classList.add('playing');
-        
-        // Navegar para o vídeo se não estiver ativo
-        if (videoIndex !== currentVideoIndex) {
-            showVideo(videoIndex);
-        }
-    } else {
-        // Pausar o vídeo atual
-        video.pause();
-        overlay.classList.remove('playing');
-    }
-}
-
-// Toggle play/pause para vídeo desktop
-function toggleDesktopVideo(videoIndex) {
-    const desktopVideos = document.querySelectorAll('.desktop-video');
-    const desktopOverlays = document.querySelectorAll('.desktop-video-overlay');
-    
-    const video = desktopVideos[videoIndex];
-    const overlay = desktopOverlays[videoIndex];
-    
-    if (video.paused) {
-        // Pausar todos os outros vídeos desktop
-        pauseAllDesktopVideos();
-        
-        // Habilitar volume e reproduzir o vídeo selecionado
-        video.muted = false;
-        video.volume = 1.0;
-        video.play();
-        overlay.classList.add('playing');
-    } else {
-        // Pausar o vídeo atual
-        video.pause();
-        overlay.classList.remove('playing');
-    }
-}
-
-// Versão limitada ao bloco de vídeos principal (evita conflito com testimonial)
-function toggleDesktopVideoPublic(videoIndex) {
-    const section = document.querySelector('.videos-section');
-    if (!section) return;
-    const videos = section.querySelectorAll('.desktop-video');
-    const overlays = section.querySelectorAll('.desktop-video-overlay');
-    const video = videos[videoIndex];
-    const overlay = overlays[videoIndex];
-    if (!video || !overlay) return;
-    
-    if (video.paused) {
-        // Pausar outros vídeos do bloco
-        videos.forEach((v, i) => {
-            if (i !== videoIndex) {
-                v.pause();
-            }
-        });
-        overlays.forEach((o, i) => {
-            if (i !== videoIndex) {
-                o.classList.remove('playing');
-            }
-        });
-        
-        video.muted = false;
-        video.volume = 1.0;
-        video.play();
-        overlay.classList.add('playing');
-    } else {
-        video.pause();
-        overlay.classList.remove('playing');
-    }
-}
-
-// Pausar todos os vídeos mobile
+// Funções auxiliares para pausar vídeos
 function pauseAllMobileVideos() {
     const mobileVideos = document.querySelectorAll('.mobile-only .carousel-video');
     const mobileOverlays = document.querySelectorAll('.mobile-only .video-overlay');
+    
+    mobileVideos.forEach(video => {
+        video.pause();
+        video.currentTime = 0;
+    });
+    
+    mobileOverlays.forEach(overlay => {
+        overlay.classList.remove('playing');
+    });
+}
+
+function pauseAllDesktopVideos() {
+    const desktopVideos = document.querySelectorAll('.desktop-video');
+    const desktopOverlays = document.querySelectorAll('.desktop-video-overlay');
+    
+    desktopVideos.forEach(video => {
+        video.pause();
+        video.currentTime = 0;
+    });
+    
+    desktopOverlays.forEach(overlay => {
+        overlay.classList.remove('playing');
+    });
+}
+
+// Pausar todos os vídeos mobile (função auxiliar duplicada - removida)
+// A função já está definida acima
+
+function resetMobileVideoOverlay(videoIndex) {
     
     mobileVideos.forEach(video => {
         video.pause();
@@ -204,13 +291,7 @@ function pauseAllDesktopVideos() {
     });
 }
 
-// Resetar overlay quando vídeo mobile termina
-function resetMobileVideoOverlay(videoIndex) {
-    const videoContainer = document.querySelector(`.mobile-only [data-video-index="${videoIndex}"]`);
-    const overlay = videoContainer.querySelector('.video-overlay');
-    overlay.classList.remove('playing');
-}
-
+// Resetar overlay quando vídeo mobile termina (removida duplicata)
 // Resetar overlay quando vídeo desktop termina
 function resetDesktopVideoOverlay(videoIndex) {
     const desktopOverlays = document.querySelectorAll('.desktop-video-overlay');
@@ -268,27 +349,7 @@ function initializeGallerySlider() {
     }, 4000); // Troca a cada 4 segundos
 }
 
-// Navegação do gallery slider
-function changeGallerySlide(direction) {
-    const slides = document.querySelectorAll('.gallery-slide');
-    const dots = document.querySelectorAll('.gallery-dot');
-    
-    if (slides.length === 0) return;
-    
-    // Remove classe ativa
-    slides[currentGallerySlide].classList.remove('active');
-    dots[currentGallerySlide].classList.remove('active');
-    
-    // Calcula próximo slide
-    currentGallerySlide += direction;
-    const total = slides.length;
-    if (currentGallerySlide >= total) currentGallerySlide = 0;
-    if (currentGallerySlide < 0) currentGallerySlide = total - 1;
-    
-    // Adiciona classe ativa
-    slides[currentGallerySlide].classList.add('active');
-    dots[currentGallerySlide].classList.add('active');
-}
+// Navegação do gallery slider (removida duplicata - já definida globalmente no topo)
 
 // Navegar para slide específico pelos dots do gallery
 function currentGallerySlideByDot(index) {
@@ -811,23 +872,10 @@ async function submitForm() {
     }, 5000);
 }
 
-// Scroll para o formulário
-function scrollToForm() {
-    const formSection = document.getElementById('contact-form');
-    if (formSection) {
-        formSection.scrollIntoView({ 
-            behavior: 'smooth',
-            block: 'start'
-        });
-        
-        // Focus no primeiro campo após scroll
-        setTimeout(() => {
-            const nameInput = document.getElementById('name');
-            if (nameInput) {
-                nameInput.focus();
-            }
-        }, 800);
-    }
+// Scroll para o formulário (removida duplicata - já definida globalmente no topo)
+
+// Gallery slider
+function initializeGallerySlider() {
 }
 
 // Efeitos de scroll e animações
@@ -991,8 +1039,9 @@ window.changeGallerySlide = changeGallerySlide;
 window.currentGallerySlide = function(index) {
     currentGallerySlideByDot(index);
 };
-// Expor versão pública do toggle para seção de vídeos
-window.toggleDesktopVideo = toggleDesktopVideoPublic;
+
+// Funções já expostas globalmente no topo do arquivo
+// window.toggleDesktopVideo, window.toggleMobileVideo, window.scrollToForm, window.changeGallerySlide
 
 // Testimonial overlay player (independente do índice global)
 function initializeTestimonialVideos() {
