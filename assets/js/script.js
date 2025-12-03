@@ -439,6 +439,23 @@ function initializeHeroAndSecondaryForms() {
     maskPhone(document.getElementById('hero-phone'));
     maskPhone(document.getElementById('avail-phone'));
 
+    // Mostrar/esconder campo "Other specify" no hero form
+    const heroAreaSelect = document.getElementById('hero-area');
+    const heroOtherSpecify = document.getElementById('hero-other-specify');
+    if (heroAreaSelect && heroOtherSpecify) {
+        const updateHeroOtherField = () => {
+            if (heroAreaSelect.value === 'Other') {
+                heroOtherSpecify.style.display = 'block';
+                heroOtherSpecify.focus();
+            } else {
+                heroOtherSpecify.style.display = 'none';
+                heroOtherSpecify.value = '';
+            }
+        };
+        heroAreaSelect.addEventListener('change', updateHeroOtherField);
+        updateHeroOtherField();
+    }
+
     const heroForm = document.getElementById('heroLeadForm');
     if (heroForm) {
         heroForm.addEventListener('submit', async (e) => {
@@ -450,12 +467,19 @@ function initializeHeroAndSecondaryForms() {
             // Coletar campos
             const name = (document.getElementById('hero-name')?.value || '').trim();
             const phone = (document.getElementById('hero-phone')?.value || '').trim();
-            const timeframe = (document.getElementById('hero-timeframe')?.value || '').trim();
+            const area = (document.getElementById('hero-area')?.value || '').trim();
+            const otherSpecify = (document.getElementById('hero-other-specify')?.value || '').trim();
 
-            if (!name || !phone) {
-                showError('Please fill in Name and Phone');
+            if (!name || !phone || !area) {
+                showError('Please fill in all required fields');
                 if (submitBtn) { submitBtn.textContent = original; submitBtn.disabled = false; }
                 return;
+            }
+
+            // Montar project type
+            let projectType = area;
+            if (area === 'Other' && otherSpecify) {
+                projectType = otherSpecify;
             }
 
             // Traffic source: pegar de UTM ou referrer (mesma lógica do formulário principal)
@@ -487,7 +511,7 @@ function initializeHeroAndSecondaryForms() {
                 phone,
                 email: '',
                 plataforma: trafficSource,
-                question: `Timeframe: ${timeframe || 'n/a'}`,
+                question: projectType,
                 source: campaignUrl,
                 tags: ['quartz-countertops', 'hero-form']
             };
@@ -904,15 +928,38 @@ function initializeScrollEffects() {
         observer.observe(el);
     });
     
-    // Header background no scroll
+    // Header: esconder ao rolar para baixo, mostrar ao rolar para cima
+    const header = document.querySelector('.header');
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+
     window.addEventListener('scroll', () => {
-        const header = document.querySelector('.header');
-        if (window.scrollY > 50) {
-            header.style.background = 'rgba(255, 255, 255, 0.98)';
-            header.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.15)';
-        } else {
-            header.style.background = 'rgba(255, 255, 255, 0.95)';
-            header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                const currentScrollY = window.scrollY;
+                
+                // Esconder header ao rolar para baixo (após 100px)
+                if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                    header.classList.add('header-hidden');
+                }
+                // Mostrar header ao rolar para cima
+                else if (currentScrollY < lastScrollY) {
+                    header.classList.remove('header-hidden');
+                }
+                
+                // Atualizar background do header baseado na posição
+                if (currentScrollY > 50) {
+                    header.style.background = 'rgba(255, 255, 255, 0.98)';
+                    header.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.15)';
+                } else {
+                    header.style.background = 'rgba(255, 255, 255, 0.95)';
+                    header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+                }
+                
+                lastScrollY = currentScrollY;
+                ticking = false;
+            });
+            ticking = true;
         }
     });
 }
