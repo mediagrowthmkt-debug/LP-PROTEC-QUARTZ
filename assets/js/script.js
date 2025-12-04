@@ -3,6 +3,30 @@ let currentSlide = 0;
 let currentVideoIndex = 0;
 let currentGallerySlide = 0;
 
+console.log('🚀 Script.js loaded successfully! Version 3.7');
+
+// Quick Quote Modal Functions
+function openQuickQuoteModal() {
+    console.log('📱 Opening Quick Quote Modal...');
+    const modal = document.getElementById('quickQuoteModal');
+    if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        console.log('✅ Modal opened successfully');
+    } else {
+        console.error('❌ Modal element not found!');
+    }
+}
+
+function closeQuickQuoteModal() {
+    console.log('❌ Closing Quick Quote Modal...');
+    const modal = document.getElementById('quickQuoteModal');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = ''; // Restore scrolling
+    }
+}
+
 // Funções globais para uso inline (devem estar disponíveis imediatamente)
 function toggleDesktopVideo(videoIndex) {
     const section = document.querySelector('.videos-section');
@@ -93,6 +117,8 @@ function changeGallerySlide(direction) {
 
 // Inicialização quando o DOM estiver carregado
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('🎯 DOM Content Loaded - Initializing...');
+    
     initializeSlideshow();
     initializeVideoCarousel();
     initializeGallerySlider();
@@ -102,6 +128,9 @@ document.addEventListener('DOMContentLoaded', function() {
     initializePhoneWidget();
     initializeTestimonialVideos();
     initializeHeaderAutoHideOnForm();
+    initializeQuickQuoteModal();
+    
+    console.log('✅ All initializations complete');
 });
 
 // Phone Widget
@@ -376,21 +405,11 @@ function initializeForm() {
     const otherSpecify = document.getElementById('other-specify');
     const areaSelect = document.getElementById('area');
 
-    // Mostrar/esconder campo "Other specify" para dropdown
-    if (areaSelect && otherSpecify) {
-        const updateOtherField = () => {
-            if (areaSelect.value === 'Other') {
-                otherSpecify.style.display = 'block';
-                otherSpecify.focus();
-            } else {
-                otherSpecify.style.display = 'none';
-                otherSpecify.value = '';
-            }
-        };
-        areaSelect.addEventListener('change', updateOtherField);
-        // Estado inicial
-        updateOtherField();
-    }
+    // NOTE: Checkbox logic is handled by universal event delegation in initializeHeroAndSecondaryForms()
+    // DO NOT add checkbox event listeners here - they conflict with event delegation
+
+    // Mostrar/esconder campo "Other specify" para dropdown - handled by event delegation now
+    // Just keep form submit handler
     
     // Validação do formulário
     if (form) {
@@ -422,7 +441,9 @@ function initializeForm() {
 
 // Inicializa formulários adicionais (HERO e disponibilidade)
 function initializeHeroAndSecondaryForms() {
-    // Máscara de telefone para campos extras
+    console.log('🔧 Initializing Hero and Secondary Forms...');
+    
+    // Máscara de telefone
     const maskPhone = (input) => {
         if (!input) return;
         input.addEventListener('input', (e) => {
@@ -437,41 +458,201 @@ function initializeHeroAndSecondaryForms() {
     };
 
     maskPhone(document.getElementById('hero-phone'));
+    maskPhone(document.getElementById('phone'));
     maskPhone(document.getElementById('avail-phone'));
 
-    // Mostrar/esconder campo "Other specify" no hero form
-    const heroAreaSelect = document.getElementById('hero-area');
-    const heroOtherSpecify = document.getElementById('hero-other-specify');
-    if (heroAreaSelect && heroOtherSpecify) {
-        const updateHeroOtherField = () => {
-            if (heroAreaSelect.value === 'Other') {
-                heroOtherSpecify.style.display = 'block';
-                heroOtherSpecify.focus();
-            } else {
-                heroOtherSpecify.style.display = 'none';
-                heroOtherSpecify.value = '';
+    // UNIVERSAL HANDLER - Funciona para TODOS os formulários (Hero, Main, Modal)
+    // Este é o ÚNICO lugar onde checkboxes são gerenciados
+    document.addEventListener('change', function(e) {
+        const target = e.target;
+        
+        console.log('🔔 Change event detected on:', target.id, target.type);
+        
+        // Hero Form Checkboxes
+        if (target.id === 'hero-contact-phone' || target.id === 'hero-contact-sms' || target.id === 'hero-contact-email') {
+            console.log('👉 Hero form checkbox clicked');
+            const phoneChecked = document.getElementById('hero-contact-phone')?.checked || false;
+            const smsChecked = document.getElementById('hero-contact-sms')?.checked || false;
+            const emailChecked = document.getElementById('hero-contact-email')?.checked || false;
+            const anyChecked = phoneChecked || smsChecked || emailChecked;
+            
+            const phoneGroup = document.getElementById('hero-phone-group');
+            const emailGroup = document.getElementById('hero-email-group');
+            const areaGroup = document.getElementById('hero-area-group');
+            const phoneField = document.getElementById('hero-phone');
+            const emailField = document.getElementById('hero-email');
+            const areaField = document.getElementById('hero-area');
+            
+            if (phoneGroup) phoneGroup.style.display = anyChecked ? 'block' : 'none';
+            if (emailGroup) emailGroup.style.display = anyChecked ? 'block' : 'none';
+            if (areaGroup) areaGroup.style.display = anyChecked ? 'block' : 'none';
+            
+            if (phoneField) phoneField.required = phoneChecked || smsChecked;
+            if (emailField) emailField.required = emailChecked;
+            if (areaField) areaField.required = anyChecked;
+            
+            console.log('✅ Hero form updated:', {phoneChecked, smsChecked, emailChecked, anyChecked});
+        }
+        
+        // Main Form Checkboxes
+        if (target.id === 'contact-phone' || target.id === 'contact-sms' || target.id === 'contact-email') {
+            console.log('👉 Main form checkbox clicked');
+            const phoneChecked = document.getElementById('contact-phone')?.checked || false;
+            const smsChecked = document.getElementById('contact-sms')?.checked || false;
+            const emailChecked = document.getElementById('contact-email')?.checked || false;
+            const anyChecked = phoneChecked || smsChecked || emailChecked;
+            
+            const phoneGroup = document.getElementById('phone-group');
+            const emailGroup = document.getElementById('email-group');
+            const areaGroup = document.getElementById('area-group');
+            const phoneField = document.getElementById('phone');
+            const emailField = document.getElementById('email');
+            const areaField = document.getElementById('area');
+            
+            console.log('📍 Main form elements:', {
+                phoneGroup: !!phoneGroup,
+                emailGroup: !!emailGroup,
+                areaGroup: !!areaGroup,
+                phoneField: !!phoneField,
+                emailField: !!emailField,
+                areaField: !!areaField
+            });
+            
+            if (phoneGroup) phoneGroup.style.display = anyChecked ? 'block' : 'none';
+            if (emailGroup) emailGroup.style.display = anyChecked ? 'block' : 'none';
+            if (areaGroup) areaGroup.style.display = anyChecked ? 'block' : 'none';
+            
+            if (phoneField) phoneField.required = phoneChecked || smsChecked;
+            if (emailField) emailField.required = emailChecked;
+            if (areaField) areaField.required = anyChecked;
+            
+            console.log('✅ Main form updated:', {phoneChecked, smsChecked, emailChecked, anyChecked});
+        }
+        
+        // Modal Form Checkboxes
+        if (target.id === 'modal-contact-phone' || target.id === 'modal-contact-sms' || target.id === 'modal-contact-email') {
+            console.log('👉 Modal form checkbox clicked');
+            const phoneChecked = document.getElementById('modal-contact-phone')?.checked || false;
+            const smsChecked = document.getElementById('modal-contact-sms')?.checked || false;
+            const emailChecked = document.getElementById('modal-contact-email')?.checked || false;
+            const anyChecked = phoneChecked || smsChecked || emailChecked;
+            
+            const phoneGroup = document.getElementById('modal-phone-group');
+            const emailGroup = document.getElementById('modal-email-group');
+            const areaGroup = document.getElementById('modal-area-group');
+            const phoneField = document.getElementById('modal-phone');
+            const emailField = document.getElementById('modal-email');
+            const areaField = document.getElementById('modal-area');
+            
+            if (phoneGroup) phoneGroup.style.display = anyChecked ? 'block' : 'none';
+            if (emailGroup) emailGroup.style.display = anyChecked ? 'block' : 'none';
+            if (areaGroup) areaGroup.style.display = anyChecked ? 'block' : 'none';
+            
+            if (phoneField) phoneField.required = phoneChecked || smsChecked;
+            if (emailField) emailField.required = emailChecked;
+            if (areaField) areaField.required = anyChecked;
+            
+            console.log('✅ Modal form updated:', {phoneChecked, smsChecked, emailChecked, anyChecked});
+        }
+        
+        // Hero Area Select - "Other" field
+        if (target.id === 'hero-area') {
+            const otherField = document.getElementById('hero-other-specify');
+            if (otherField) {
+                if (target.value === 'Other') {
+                    otherField.style.display = 'block';
+                    otherField.required = true;
+                } else {
+                    otherField.style.display = 'none';
+                    otherField.required = false;
+                    otherField.value = '';
+                }
             }
-        };
-        heroAreaSelect.addEventListener('change', updateHeroOtherField);
-        updateHeroOtherField();
-    }
+        }
+        
+        // Main Area Select - "Other" field
+        if (target.id === 'area') {
+            const otherField = document.getElementById('other-specify');
+            if (otherField) {
+                if (target.value === 'Other') {
+                    otherField.style.display = 'block';
+                    otherField.required = true;
+                } else {
+                    otherField.style.display = 'none';
+                    otherField.required = false;
+                    otherField.value = '';
+                }
+            }
+        }
+        
+        // Modal Area Select - "Other" field
+        if (target.id === 'modal-area') {
+            const otherField = document.getElementById('modal-other-specify');
+            if (otherField) {
+                if (target.value === 'Other') {
+                    otherField.style.display = 'block';
+                    otherField.required = true;
+                } else {
+                    otherField.style.display = 'none';
+                    otherField.required = false;
+                    otherField.value = '';
+                }
+            }
+        }
+    });
 
+    // Hero Form Submit
     const heroForm = document.getElementById('heroLeadForm');
     if (heroForm) {
-        heroForm.addEventListener('submit', async (e) => {
+        heroForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             const submitBtn = heroForm.querySelector('.hero-form-submit');
             const original = submitBtn ? submitBtn.textContent : '';
             if (submitBtn) { submitBtn.textContent = 'Sending...'; submitBtn.disabled = true; }
 
+            // Collect checkbox selections
+            const heroPhoneCheck = document.getElementById('hero-contact-phone');
+            const heroSmsCheck = document.getElementById('hero-contact-sms');
+            const heroEmailCheck = document.getElementById('hero-contact-email');
+            
+            const contactPreferences = [];
+            if (heroPhoneCheck && heroPhoneCheck.checked) contactPreferences.push('Phone Call');
+            if (heroSmsCheck && heroSmsCheck.checked) contactPreferences.push('SMS/Text');
+            if (heroEmailCheck && heroEmailCheck.checked) contactPreferences.push('Email');
+            
             // Coletar campos
             const name = (document.getElementById('hero-name')?.value || '').trim();
             const phone = (document.getElementById('hero-phone')?.value || '').trim();
+            const email = (document.getElementById('hero-email')?.value || '').trim();
             const area = (document.getElementById('hero-area')?.value || '').trim();
             const otherSpecify = (document.getElementById('hero-other-specify')?.value || '').trim();
 
-            if (!name || !phone || !area) {
-                showError('Please fill in all required fields');
+            // Validate
+            if (!name || contactPreferences.length === 0) {
+                showError('Please enter your name and select at least one contact method');
+                if (submitBtn) { submitBtn.textContent = original; submitBtn.disabled = false; }
+                return;
+            }
+            
+            // Validate based on selected contact methods
+            if ((heroPhoneCheck && heroPhoneCheck.checked) || (heroSmsCheck && heroSmsCheck.checked)) {
+                if (!phone) {
+                    showError('Please enter your phone number');
+                    if (submitBtn) { submitBtn.textContent = original; submitBtn.disabled = false; }
+                    return;
+                }
+            }
+            
+            if (heroEmailCheck && heroEmailCheck.checked) {
+                if (!email) {
+                    showError('Please enter your email address');
+                    if (submitBtn) { submitBtn.textContent = original; submitBtn.disabled = false; }
+                    return;
+                }
+            }
+            
+            if (contactPreferences.length > 0 && !area) {
+                showError('Please select your project area');
                 if (submitBtn) { submitBtn.textContent = original; submitBtn.disabled = false; }
                 return;
             }
@@ -508,8 +689,9 @@ function initializeHeroAndSecondaryForms() {
             const campaignUrl = window.location.href;
             const payload = {
                 name,
-                phone,
-                email: '',
+                phone: phone || '',
+                email: email || '',
+                contactPreference: contactPreferences.join(', '),
                 plataforma: trafficSource,
                 question: projectType,
                 source: campaignUrl,
@@ -617,6 +799,8 @@ function initializeHeroAndSecondaryForms() {
             }
         });
     }
+    
+    console.log('✅ Hero and Secondary Forms initialized successfully!');
 }
 
 // Helper para postar no webhook (suporta opcionalmente arquivo)
@@ -646,10 +830,22 @@ async function postToWebhook(payload, file) {
 // Validação do formulário
 function validateForm() {
     const name = document.getElementById('name').value.trim();
-    const phone = document.getElementById('phone').value.trim();
-    const email = document.getElementById('email').value.trim();
+    const phoneField = document.getElementById('phone');
+    const emailField = document.getElementById('email');
+    const phone = phoneField ? phoneField.value.trim() : '';
+    const email = emailField ? emailField.value.trim() : '';
     const areaSelect = document.getElementById('area');
     const areaValue = areaSelect ? areaSelect.value.trim() : '';
+    
+    // Get checkbox selections
+    const phoneCheckbox = document.getElementById('contact-phone');
+    const smsCheckbox = document.getElementById('contact-sms');
+    const emailCheckbox = document.getElementById('contact-email');
+    
+    const phoneChecked = phoneCheckbox && phoneCheckbox.checked;
+    const smsChecked = smsCheckbox && smsCheckbox.checked;
+    const emailChecked = emailCheckbox && emailCheckbox.checked;
+    const anyChecked = phoneChecked || smsChecked || emailChecked;
     
     // Validar campos obrigatórios
     if (!name) {
@@ -658,25 +854,33 @@ function validateForm() {
         return false;
     }
     
-    if (!phone) {
+    if (!anyChecked) {
+        showError('Please select at least one contact method');
+        return false;
+    }
+    
+    // Validar phone se necessário
+    if ((phoneChecked || smsChecked) && !phone) {
         showError('Please enter your phone number');
-        document.getElementById('phone').focus();
+        if (phoneField) phoneField.focus();
         return false;
     }
     
-    if (!email) {
+    // Validar email se necessário
+    if (emailChecked && !email) {
         showError('Please enter your email address');
-        document.getElementById('email').focus();
+        if (emailField) emailField.focus();
         return false;
     }
     
-    if (!validateEmail(email)) {
+    // Validar formato de email se o campo estiver preenchido
+    if (email && !validateEmail(email)) {
         showError('Please enter a valid email address');
-        document.getElementById('email').focus();
+        if (emailField) emailField.focus();
         return false;
     }
     
-    if (!areaValue) {
+    if (anyChecked && !areaValue) {
         showError('Please select an area you want to upgrade');
         if (areaSelect) areaSelect.focus();
         return false;
@@ -767,10 +971,20 @@ async function submitForm() {
 
     // Coletar dados do formulário
     const name = document.getElementById('name').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const phone = document.getElementById('phone').value.trim();
+    const email = document.getElementById('email') ? document.getElementById('email').value.trim() : '';
+    const phone = document.getElementById('phone') ? document.getElementById('phone').value.trim() : '';
     const area = document.getElementById('area') ? document.getElementById('area').value : '';
     const otherSpecify = document.getElementById('other-specify').value.trim();
+    
+    // Collect checkbox selections
+    const phoneCheckbox = document.getElementById('contact-phone');
+    const smsCheckbox = document.getElementById('contact-sms');
+    const emailCheckbox = document.getElementById('contact-email');
+    
+    const contactPreferences = [];
+    if (phoneCheckbox && phoneCheckbox.checked) contactPreferences.push('Phone Call');
+    if (smsCheckbox && smsCheckbox.checked) contactPreferences.push('SMS/Text');
+    if (emailCheckbox && emailCheckbox.checked) contactPreferences.push('Email');
     
     // Montar question field
     let projectType = area;
@@ -819,8 +1033,9 @@ async function submitForm() {
     // Payload no formato solicitado
     const payload = {
         name: name,
-        email: email,
-        phone: phone,
+        email: email || '',
+        phone: phone || '',
+        contactPreference: contactPreferences.join(', '),
         plataforma: trafficSource,
         question: projectType + ' - tipo de projeto? *',
         source: campaignUrl,
@@ -1061,6 +1276,179 @@ function initializeLazyLoading() {
 // Inicializar lazy loading
 document.addEventListener('DOMContentLoaded', initializeLazyLoading);
 
+// Initialize Quick Quote Modal
+function initializeQuickQuoteModal() {
+    const modal = document.getElementById('quickQuoteModal');
+    if (!modal) {
+        console.error('Modal not found!');
+        return;
+    }
+    
+    console.log('Initializing Quick Quote Modal...');
+    
+    const closeBtn = modal.querySelector('.modal-close');
+    const overlay = modal.querySelector('.modal-overlay');
+    const form = modal.querySelector('#quickQuoteForm');
+    const areaSelect = modal.querySelector('#modal-area');
+    const otherField = modal.querySelector('#modal-other-specify');
+    const phoneField = modal.querySelector('#modal-phone');
+    
+    // Apply phone mask to modal phone field
+    if (phoneField) {
+        phoneField.addEventListener('input', (e) => {
+            let v = e.target.value.replace(/\D/g, '');
+            if (v.length >= 6) {
+                v = v.replace(/(\d{3})(\d{3})(\d+)/, '($1) $2-$3');
+            } else if (v.length >= 3) {
+                v = v.replace(/(\d{3})(\d+)/, '($1) $2');
+            }
+            e.target.value = v;
+        });
+    }
+    
+    // Close modal on close button click
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeQuickQuoteModal);
+    }
+    
+    // Close modal on overlay click
+    if (overlay) {
+        overlay.addEventListener('click', closeQuickQuoteModal);
+    }
+    
+    // Close modal on ESC key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeQuickQuoteModal();
+        }
+    });
+    
+    // NOTE: Checkbox logic is handled by universal event delegation in initializeHeroAndSecondaryForms()
+    // DO NOT add checkbox event listeners here - they conflict with event delegation
+    
+    console.log('Modal initialized - checkbox handling delegated to universal handler');
+    
+    // Handle form submission
+    if (form) {
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = form.querySelector('.cta-button');
+            const originalBtnText = submitBtn.textContent;
+            
+            // Get checkbox elements
+            const phoneCheckbox = modal.querySelector('#modal-contact-phone');
+            const smsCheckbox = modal.querySelector('#modal-contact-sms');
+            const emailCheckbox = modal.querySelector('#modal-contact-email');
+            
+            // Collect selected contact preferences
+            const contactPreferences = [];
+            if (phoneCheckbox && phoneCheckbox.checked) contactPreferences.push('Phone Call');
+            if (smsCheckbox && smsCheckbox.checked) contactPreferences.push('SMS/Text');
+            if (emailCheckbox && emailCheckbox.checked) contactPreferences.push('Email');
+            
+            // Get form data
+            const formData = new FormData(form);
+            
+            // Get current page name from URL
+            const pageName = window.location.pathname.split('/').pop() || 'google.html';
+            
+            const data = {
+                name: formData.get('name'),
+                phone: formData.get('phone') || '',
+                email: formData.get('email') || '',
+                area: formData.get('area') || '',
+                otherSpecify: formData.get('other_specify') || '',
+                contactPreference: contactPreferences.join(', '),
+                plataforma: 'google',
+                source: `Quick Quote Modal - ${pageName}`,
+                timestamp: new Date().toISOString()
+            };
+            
+            // Validate required fields
+            if (!data.name || contactPreferences.length === 0) {
+                alert('Please enter your name and select at least one contact method.');
+                return;
+            }
+            
+            // Validate based on selected contact methods
+            if ((phoneCheckbox && phoneCheckbox.checked) || (smsCheckbox && smsCheckbox.checked)) {
+                if (!data.phone) {
+                    alert('Please enter your phone number.');
+                    return;
+                }
+            }
+            
+            if (emailCheckbox && emailCheckbox.checked) {
+                if (!data.email) {
+                    alert('Please enter your email address.');
+                    return;
+                }
+            }
+            
+            if (contactPreferences.length > 0 && !data.area) {
+                alert('Please select your project area.');
+                return;
+            }
+            
+            // If "Other" selected, ensure otherSpecify is filled
+            if (data.area === 'Other' && !data.otherSpecify) {
+                alert('Please specify your project type.');
+                return;
+            }
+            
+            // Disable submit button
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+            
+            try {
+                // Use the same postToWebhook function as the main form
+                await postToWebhook(data);
+                
+                // Track conversion
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'conversion', {
+                        event_category: 'form',
+                        event_label: 'Quick Quote Modal Submitted'
+                    });
+                }
+                
+                // Reset form and close modal
+                form.reset();
+                closeQuickQuoteModal();
+                
+                // Redirect to thank you page
+                window.location.href = 'thank-you.html';
+                
+            } catch (error) {
+                console.error('Form submission error:', error);
+                
+                // Even if there's an error, still redirect to thank you page
+                // The data was likely sent
+                form.reset();
+                closeQuickQuoteModal();
+                window.location.href = 'thank-you.html';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = originalBtnText;
+            }
+        });
+    }
+    
+    // Add event listeners to all CTAs that should trigger modal
+    const ctaTriggers = document.querySelectorAll('.nav-cta, .cta-button[href="#contact-form"], .mobile-call-btn, #phoneWidgetBtn');
+    ctaTriggers.forEach(trigger => {
+        trigger.addEventListener('click', function(e) {
+            // Only trigger modal for quote-related CTAs
+            const text = this.textContent.toLowerCase();
+            if (text.includes('quote') || text.includes('estimate') || this.id === 'phoneWidgetBtn') {
+                e.preventDefault();
+                openQuickQuoteModal();
+            }
+        });
+    });
+}
+
 // Detectar cliques em botões CTA para analytics
 document.addEventListener('click', function(e) {
     if (e.target.classList.contains('cta-button')) {
@@ -1086,6 +1474,9 @@ window.changeGallerySlide = changeGallerySlide;
 window.currentGallerySlide = function(index) {
     currentGallerySlideByDot(index);
 };
+// Expor funções do modal globalmente
+window.openQuickQuoteModal = openQuickQuoteModal;
+window.closeQuickQuoteModal = closeQuickQuoteModal;
 
 // Funções já expostas globalmente no topo do arquivo
 // window.toggleDesktopVideo, window.toggleMobileVideo, window.scrollToForm, window.changeGallerySlide

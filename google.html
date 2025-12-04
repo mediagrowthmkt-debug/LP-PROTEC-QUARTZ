@@ -6,6 +6,11 @@
     <title>Kitchen Countertops Near Me | Free In-Home Showroom | Massachusetts</title>
     <meta name="description" content="Searching for kitchen countertops near me? We bring the showroom to you! 100+ samples, 3D preview, same-day quote, and 7-day installation. Serving Massachusetts homeowners.">
     
+    <!-- Favicon -->
+    <link rel="icon" type="image/webp" href="assets/images/logo/logomarca-protec.webp">
+    <link rel="shortcut icon" type="image/webp" href="assets/images/logo/logomarca-protec.webp">
+    <link rel="apple-touch-icon" href="assets/images/logo/logomarca-protec.webp">
+    
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17704480410"></script>
     <script>
@@ -45,7 +50,7 @@ In your html page, add the snippet and call gtag_report_conversion when someone 
     </script>
     
     <link rel="preload" as="image" href="assets/images/hero/slides/slide-001.webp">
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css?v=2.7">
 </head>
 <body>
     <!-- Sticky Top Bar -->
@@ -56,7 +61,7 @@ In your html page, add the snippet and call gtag_report_conversion when someone 
             <img src="assets/images/logo/logomarca-protec.webp" alt="Protec Premium Granite" class="logo">
             <nav class="nav">
                 <a href="#contact-form" class="nav-cta">Request a Free Quote</a>
-                <a href="#contact-form" class="mobile-call-btn" onclick="scrollToForm(); return false;">Call for Fast Estimate</a>
+                <a href="#" class="mobile-call-btn" onclick="openQuickQuoteModal(); return false;">Call for Fast Estimate</a>
             </nav>
         </div>
     </header>
@@ -74,7 +79,7 @@ In your html page, add the snippet and call gtag_report_conversion when someone 
                     <h1 class="hero-title">Your New Kitchen Countertops Delivered in 7 Days</h1>
                     <p class="hero-subtitle">The easiest way to pick your countertop, samples and 3D preview <strong>without leaving home</strong>.</p>
                     <p class="hero-pain">See quartz, granite & marble in your actual kitchen lighting. Get your quote today, installed in 7 days.</p>
-                    <button class="cta-button hero-cta" onclick="scrollToForm()">Request a Free Quote & Same-Day Estimate</button>
+                    <button class="cta-button hero-cta" onclick="openQuickQuoteModal()">Request a Free Quote & Same-Day Estimate</button>
                     <div class="hero-badges">
                         <span class="hero-badge">★ 4.9 Rating — Massachusetts Homeowners</span>
                         <span class="hero-badge">� Serving Your Area</span>
@@ -89,12 +94,33 @@ In your html page, add the snippet and call gtag_report_conversion when someone 
                             <input type="text" id="hero-name" name="name" required placeholder="Your full name">
                         </div>
                         <div class="form-group">
-                            <label for="hero-phone">Phone *</label>
-                            <input type="tel" id="hero-phone" name="phone" required placeholder="(555) 123-4567">
+                            <label>How would you like to be contacted? *</label>
+                            <div class="contact-preference-options">
+                                <label class="checkbox-option">
+                                    <input type="checkbox" name="hero-contact-phone" id="hero-contact-phone" value="phone">
+                                    <span>📞 Phone</span>
+                                </label>
+                                <label class="checkbox-option">
+                                    <input type="checkbox" name="hero-contact-sms" id="hero-contact-sms" value="sms">
+                                    <span>💬 SMS</span>
+                                </label>
+                                <label class="checkbox-option">
+                                    <input type="checkbox" name="hero-contact-email" id="hero-contact-email" value="email">
+                                    <span>📧 Email</span>
+                                </label>
+                            </div>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" id="hero-phone-group" style="display: none;">
+                            <label for="hero-phone">Phone *</label>
+                            <input type="tel" id="hero-phone" name="phone" placeholder="(XXX) XXX-XXXX">
+                        </div>
+                        <div class="form-group" id="hero-email-group" style="display: none;">
+                            <label for="hero-email">Email *</label>
+                            <input type="email" id="hero-email" name="email" placeholder="your@email.com">
+                        </div>
+                        <div class="form-group" id="hero-area-group" style="display: none;">
                             <label for="hero-area">What countertop project are you planning? *</label>
-                            <select id="hero-area" name="area" required class="area-select">
+                            <select id="hero-area" name="area" class="area-select">
                                 <option value="" disabled selected>Select an option</option>
                                 <option value="Kitchen Countertops Only">Kitchen Countertops Only</option>
                                 <option value="Kitchen + Island">Kitchen Countertops + Island</option>
@@ -176,7 +202,7 @@ In your html page, add the snippet and call gtag_report_conversion when someone 
                             </div>
                         </li>
                     </ul>
-                    <button class="cta-button" onclick="scrollToForm()">Ask About Our Mobile Showroom</button>
+                    <button class="cta-button" onclick="openQuickQuoteModal()">Ask About Our Mobile Showroom</button>
                 </div>
                 
                 <div class="showroom-gallery">
@@ -267,7 +293,7 @@ In your html page, add the snippet and call gtag_report_conversion when someone 
                 </div>
             </div>
             <div class="cta-center">
-                <button class="cta-button" onclick="scrollToForm()">Start Your Project Today</button>
+                <button class="cta-button" onclick="openQuickQuoteModal()">Start Your Project Today</button>
             </div>
         </div>
     </section>
@@ -290,7 +316,7 @@ In your html page, add the snippet and call gtag_report_conversion when someone 
                         <li>✓ Consistent patterns</li>
                         <li>✓ Ideal for busy kitchens</li>
                     </ul>
-                    <button class="material-cta" onclick="scrollToForm()">Get Quartz Quote</button>
+                    <button class="material-cta" onclick="openQuickQuoteModal()">Get Quartz Quote</button>
                 </div>
 
                 <!-- Granite -->
@@ -304,7 +330,7 @@ In your html page, add the snippet and call gtag_report_conversion when someone 
                         <li>✓ Unique veining</li>
                         <li>✓ Timeless elegance</li>
                     </ul>
-                    <button class="material-cta" onclick="scrollToForm()">Get Granite Quote</button>
+                    <button class="material-cta" onclick="openQuickQuoteModal()">Get Granite Quote</button>
                 </div>
 
                 <!-- Marble -->
@@ -318,7 +344,7 @@ In your html page, add the snippet and call gtag_report_conversion when someone 
                         <li>✓ Elegant veining</li>
                         <li>✓ Increases home value</li>
                     </ul>
-                    <button class="material-cta" onclick="scrollToForm()">Get Marble Quote</button>
+                    <button class="material-cta" onclick="openQuickQuoteModal()">Get Marble Quote</button>
                 </div>
             </div>
 
@@ -370,7 +396,7 @@ In your html page, add the snippet and call gtag_report_conversion when someone 
                 </div>
 
                 <div class="cta-center">
-                    <button class="cta-button primary-cta" onclick="scrollToForm()">See All Options in 3D Preview</button>
+                    <button class="cta-button primary-cta" onclick="openQuickQuoteModal()">See All Options in 3D Preview</button>
                     <p class="cta-subtext">We'll show you exactly how each material and color looks in YOUR kitchen</p>
                 </div>
             </div>
@@ -405,7 +431,7 @@ In your html page, add the snippet and call gtag_report_conversion when someone 
                 </div>
             </div>
             <div class="cta-center">
-                <button class="cta-button" onclick="scrollToForm()">Request Free 3D Preview & Quote</button>
+                <button class="cta-button" onclick="openQuickQuoteModal()">Request Free 3D Preview & Quote</button>
             </div>
         </div>
     </section>
@@ -416,7 +442,7 @@ In your html page, add the snippet and call gtag_report_conversion when someone 
             <div class="preview3d-copy">
                 <h2 class="section-title">Not Sure Which Countertop to Choose?</h2>
                 <p class="section-text">We'll show you exactly how each option looks in YOUR kitchen with our 3D visualization — before you commit to anything.</p>
-                <button class="cta-button" onclick="scrollToForm()">Request Free 3D Preview & Quote</button>
+                <button class="cta-button" onclick="openQuickQuoteModal()">Request Free 3D Preview & Quote</button>
             </div>
             <div class="preview3d-image">
                 <img src="assets/images/kitchen design3d.webp" alt="3D Kitchen Preview Mockup" loading="lazy">
@@ -533,23 +559,38 @@ In your html page, add the snippet and call gtag_report_conversion when someone 
             </div>
             
             <form class="contact-form" id="leadForm">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="name">🧍 Name *</label>
-                        <input type="text" id="name" name="name" required placeholder="Your full name">
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">📞 Phone *</label>
-                        <input type="tel" id="phone" name="phone" required placeholder="(555) 123-4567">
-                    </div>
+                <div class="form-group">
+                    <label for="name">🧍 Name *</label>
+                    <input type="text" id="name" name="name" required placeholder="Your full name">
                 </div>
                 <div class="form-group">
+                    <label>How would you like to be contacted? *</label>
+                    <div class="contact-preference-options">
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="contact-phone" id="contact-phone" value="phone">
+                            <span>📞 Phone Call</span>
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="contact-sms" id="contact-sms" value="sms">
+                            <span>💬 SMS/Text</span>
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="contact-email" id="contact-email" value="email">
+                            <span>📧 Email</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group" id="phone-group" style="display: none;">
+                    <label for="phone">📞 Phone *</label>
+                    <input type="tel" id="phone" name="phone" placeholder="(XXX) XXX-XXXX">
+                </div>
+                <div class="form-group" id="email-group" style="display: none;">
                     <label for="email">📧 Email *</label>
-                    <input type="email" id="email" name="email" required placeholder="your@email.com">
+                    <input type="email" id="email" name="email" placeholder="your@email.com">
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="area-group" style="display: none;">
                     <label for="area">What countertop project are you planning? *</label>
-                    <select id="area" name="area" required class="area-select">
+                    <select id="area" name="area" class="area-select">
                         <option value="" disabled selected>Select an option</option>
                         <option value="Kitchen Countertops Only">Kitchen Countertops Only</option>
                         <option value="Kitchen + Island">Kitchen Countertops + Island</option>
@@ -617,7 +658,7 @@ In your html page, add the snippet and call gtag_report_conversion when someone 
 
     <!-- Floating Phone Widget -->
     <div class="phone-widget" id="phoneWidget">
-        <a href="#contact-form" class="phone-widget-button" id="phoneWidgetBtn" onclick="scrollToForm(); return false;">
+        <a href="#" class="phone-widget-button" id="phoneWidgetBtn" onclick="openQuickQuoteModal(); return false;">
             📞
         </a>
         <div class="phone-widget-popup" id="phoneWidgetPopup">
@@ -626,8 +667,67 @@ In your html page, add the snippet and call gtag_report_conversion when someone 
         </div>
     </div>
 
+    <!-- Quick Quote Modal Popup -->
+    <div class="quick-quote-modal" id="quickQuoteModal">
+        <div class="modal-overlay" onclick="closeQuickQuoteModal()"></div>
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeQuickQuoteModal()">×</button>
+            <h3 class="modal-title">Get Your Free Quote</h3>
+            <p class="modal-subtitle">Fill out the quick form below and we'll contact you shortly</p>
+            
+            <form id="quickQuoteForm" class="quick-quote-form">
+                <div class="form-group">
+                    <label for="modal-name">Name *</label>
+                    <input type="text" id="modal-name" name="name" required placeholder="Your full name" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label>How would you like to be contacted? *</label>
+                    <div class="contact-preference-options">
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="modal-contact-phone" id="modal-contact-phone" value="phone">
+                            <span>📞 Phone Call</span>
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="modal-contact-sms" id="modal-contact-sms" value="sms">
+                            <span>💬 SMS/Text</span>
+                        </label>
+                        <label class="checkbox-option">
+                            <input type="checkbox" name="modal-contact-email" id="modal-contact-email" value="email">
+                            <span>📧 Email</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group" id="modal-phone-group" style="display: none;">
+                    <label for="modal-phone">Phone *</label>
+                    <input type="tel" id="modal-phone" name="phone" placeholder="(XXX) XXX-XXXX" autocomplete="off">
+                </div>
+                <div class="form-group" id="modal-email-group" style="display: none;">
+                    <label for="modal-email">Email *</label>
+                    <input type="email" id="modal-email" name="email" placeholder="your@email.com" autocomplete="off">
+                </div>
+                <div class="form-group" id="modal-area-group" style="display: none;">
+                    <label for="modal-area">What countertop project are you planning? *</label>
+                    <select id="modal-area" name="area" class="area-select">
+                        <option value="" disabled selected>Select an option</option>
+                        <option value="Kitchen Countertops Only">Kitchen Countertops Only</option>
+                        <option value="Kitchen + Island">Kitchen Countertops + Island</option>
+                        <option value="Island Only">Island Only</option>
+                        <option value="Kitchen + Backsplash">Kitchen + Backsplash</option>
+                        <option value="Bathroom Vanity">Bathroom Vanity</option>
+                        <option value="Full Kitchen Remodel">Full Kitchen Remodel</option>
+                        <option value="Just Exploring Options">Just Exploring Options</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <input type="text" id="modal-other-specify" name="other_specify" placeholder="Please specify your project..." style="display: none; margin-top: 15px;">
+                </div>
+                <button type="submit" class="cta-button modal-submit">Get My Free Quote</button>
+                <p class="form-disclaimer small">✅ No pressure sales · Same-day quote · Bilingual team</p>
+            </form>
+        </div>
+    </div>
+
     
 
-    <script src="assets/js/script.js"></script>
+    <script src="assets/js/script.js?v=6.4"></script>
 </body>
 </html>
